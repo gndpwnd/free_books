@@ -230,13 +230,15 @@ def gen_index():
         No ads, no paywalls, no bullshit.">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/button.css">
+
+    <title>Freshavacado</title>
 </head>
 <body class="everything">
-  <tile class="title">About</title>
+  <h1 class="title">Free Books</h1>
 
-  <h1 class="subtitle">
+  <h2 class="subtitle">
     <button class="menu_button"><span onclick="window.location='./books.html'">Discover Books</span></button>
-  </h1>
+  </h2>
 
   <p class="description-head">Description</p>
 
