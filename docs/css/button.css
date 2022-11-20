@@ -1,0 +1,82 @@
+.menu_button {
+    background-color: #000080;
+    border: none;
+    color: #7DF9FF;
+    text-align: center;
+    font-size: 20px;
+    padding: 20px;
+    width: 200px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+    border-radius: 30px;
+}
+  
+.menu_button span {
+cursor: pointer;
+display: inline-block;
+position: relative;
+transition: 0.5s;
+}
+
+.menu_button span:after {
+content: '\00bb';
+position: absolute;
+opacity: 0;
+top: 0;
+right: -1%;
+transition: 0.5s;
+}
+
+.menu_button:hover span {
+padding-right: 25px;
+}
+
+.menu_button:hover span:after {
+opacity: 1;
+right: 0;
+}
+
+
+.normal_button {
+    border-radius: 30px;
+    background-color: #000080;
+    border: none;
+    color: #7DF9FF;
+    text-align: center;
+    font-size: 20px;
+    padding: 20px;
+    width: 200px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+}
+  
+.normal_button span {
+cursor: pointer;
+display: inline-block;
+position: relative;
+transition: 0.5s;
+}
+
+.normal_button span:after {
+content: '\00bb';
+position: absolute;
+opacity: 0;
+top: 0;
+right: -1%;
+transition: 0.5s;
+}
+
+.normal_button:hover span {
+padding-right: 25px;
+}
+
+.normal_button:hover span:after {
+opacity: 1;
+right: 0;
+}
+
+.normal_button strong {
+    color: #ffffff;
+}

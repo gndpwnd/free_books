@@ -1,0 +1,59 @@
+.everything {
+    background-color: #000000;
+    color: #ffffff;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.title {
+    font-size: 500%;
+    font-weight: bold;
+    text-align: center;
+    margin: 5% auto 5%;
+}
+
+.subtitle {
+    font-size: 200%;
+    text-align: center;
+    margin: -3% auto 5%;
+}
+
+.subsubtitle {
+    font-size: 100%;
+    text-align: center;
+    margin: 5% auto 5%;
+}
+
+.description {
+    font-size: 100%;
+    padding-left: 20%;
+    padding-right: 20%;
+}
+
+.description-head {
+    font-size: 150%;
+    padding-left: 20%;
+    padding-right: 20%;
+}
+
+.bullet_point {
+    font-size: 100%;
+    padding-left: 2%;
+    padding-bottom: 3%;
+}
+
+.progress-bar {
+    background: linear-gradient(to right, rgb(255, 255, 255) var(--scroll), transparent 0);
+    background-repeat: no-repeat;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    z-index: 1;
+    border-radius: 30px;
+}
+
+@keyframes scroll {
+    95% { top: -100%; }
+    100% { top:0; }
+}
