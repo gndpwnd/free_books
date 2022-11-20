@@ -116,7 +116,6 @@ def get_book_data():
 
     return num_books_found
 
-
 def gen_book_list():
 
     fancy_print("Generating books.html...", "", 0)
@@ -212,7 +211,6 @@ def gen_book_list():
     
         f.write(book_html_p5)
 
-
 def gen_index():
     fancy_print("Generating index.html...", "", 0)
     index_html_p1 = """<!DOCTYPE html>
@@ -234,11 +232,11 @@ def gen_index():
     <link rel="stylesheet" href="css/button.css">
 </head>
 <body class="everything">
-  <h1 class="title">About</h1>
+  <tile class="title">About</title>
 
-  <h3 class="subtitle">
+  <h1 class="subtitle">
     <button class="menu_button"><span onclick="window.location='./books.html'">Discover Books</span></button>
-  </h3>
+  </h1>
 
   <p class="description-head">Description</p>
 
@@ -249,10 +247,10 @@ def gen_index():
     <li class="bullet_point"><strong>If using Chrome,</strong> it is recommended to <a href="https://chrome.google.com/webstore/detail/pdf-viewer/oemmndcbldboiebfnladdacbdfmadadm/">install this extension</a> to view pdfs rather than downloading them.</li>
   </ul>
 
-  <h3 class="subsubtitle">
+  <h2 class="subsubtitle">
     <button class="menu_button"><span onclick="window.location='https://github.com/gndpwnd/free_books/'">Project Github</span></button>
     <button class="menu_button"><span onclick="window.location='https://github.com/gndpwnd'">Author</span></button>
-  </h3>
+  </h2>
 
   </body>
 </html>
