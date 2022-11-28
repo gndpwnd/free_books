@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y75RZ4ZSJM"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-Y75RZ4ZSJM');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta 
+        name="description"
+        content="Author: gndpnwd
+        Free PDF books. 
+        Valuable content for free. 
+        No ads, no paywalls, no bullshit.">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/grid.css">
+    <link rel="stylesheet" href="css/button.css">
+
+
+    <title>Freshavacado</title>
+</head>
+<body class="everything">
+    <style>
+        .progress-bar {
+            height: 8px;
+            background: #7DF9FF;
+            width: 0%;
+        }
+
+        .speedcontrolcontainer {
+            width: 100%;
+            display: block;
+            border: 1px solid #000;
+            padding: 10px;
+            font-family: Sans-serif;
+        }
+        .speedcontrolcontainer audio {
+            width: 100%;
+            display: block;
+        }
+        .speedcontrolcontainer div {
+            display: flex;
+            padding: .5em 0;
+            gap: 5px;
+        }
+        .speedcontrolcontainer label {
+            flex: 1;
+        }
+        .speedcontrolcontainer input[type="range"] {
+            flex: 5;
+            color: #7DF9FF;
+        }
+        .speedcontrolcontainer span {
+            flex: 1;
+            text-align: center;
+        }
+
+        p {
+            font-size: 1.5em;
+            text-align: center;
+        }
+    </style>
+
+    <script>
+        // change the speed of the audio based on the slider
+        var audio = document.querySelector('audio');
+        var pbrate = document.querySelector('#pbrate');
+        var pbrateValue = document.querySelector('#pbrate + span');
+        pbrateValue.innerHTML = pbrate.value;
+        pbrate.addEventListener('input', function() {
+          pbrateValue.innerHTML = this.value;
+          audio.playbackRate = this.value;
+        });
+    </script>
+
+    <div class="progress-container">
+        <div class="progress-bar" id="myBar"></div>
+    </div> 
+
+    <script>
+        window.onscroll = function() {progressbar()};
+
+        function progressbar() {
+        var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        var scrolled = (winScroll / height) * 100;
+        document.getElementById("myBar").style.width = scrolled + "%";
+        }
+    </script>
+
+    <h1 class="title">Free Books</h1>
+
+    <h2 class="subtitle">Valuable content for free. <i>No ads, no paywalls, no bullshit.</i></h2>
+  
+        <div class="audio-player">
+            <br>
+            <br>
+            <p><strong>#1</strong> 
+            <br>
+                0 To 1
+            </p>
+            <div class="speedcontrolcontainer">
+                <audio src="https://dev00psarchive.nyc3.cdn.digitaloceanspaces.com/archive-books-audio/business/0_To_1.mp3" controls></audio>
+                <div>
+                <label for="pbrate">Speed:</label>
+                <input type="range" id="pbrate" min=.6 max=3 value=1 step=.2>
+                <span></span>
+                </div>
+            </div>
+        </div>
+        
+    <script>
+        // change the speed of the audio based on the slider
+        var audio = document.querySelector('audio');
+        var pbrate = document.querySelector('#pbrate');
+        var pbrateValue = document.querySelector('#pbrate + span');
+        pbrateValue.innerHTML = pbrate.value;
+        pbrate.addEventListener('input', function() {
+          pbrateValue.innerHTML = this.value;
+          audio.playbackRate = this.value;
+        });
+    </script>
+</body>
+</html>
+    

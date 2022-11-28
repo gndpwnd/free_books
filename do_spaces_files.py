@@ -52,8 +52,12 @@ class Get_Data:
 
   )
 
-  def get_data(self):
+  def get_books_pdf(self):
     data = self.client.list_files("archive-books/")
+    return data
+  
+  def get_books_audio(self):
+    data = self.client.list_files("archive-books-audio/")
     return data
 
   def reorg_json_data(self, data):
@@ -89,16 +93,28 @@ class Get_Data:
 
   def __init__(self):
   
-      data = self.get_data()
+      data1 = self.get_books_pdf()
       
-      self.book_links, self.book_titles = self.reorg_json_data(data)
+      data2 = self.get_books_audio()
+
+      self.book_links1, self.book_titles1 = self.reorg_json_data(data1)
+      self.book_links2, self.book_titles2 = self.reorg_json_data(data2)
 
 def test():
   
+  print("Testing...")
+
   data = Get_Data()
 
-  book_links = data.book_links
-  book_titles = data.book_titles
+  book_links1  = data.book_links1
+  book_titles1 = data.book_titles1
+  
+  book_links2  = data.book_links2
+  book_titles2 = data.book_titles2
 
-  print(book_links)
-  print(book_titles)
+
+  print(book_links1)
+  print(book_titles1)
+
+  print(book_links2)
+  print(book_titles2)

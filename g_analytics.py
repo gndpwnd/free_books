@@ -6,7 +6,7 @@ Please set the following environment variables:
 
 GOOGLE_ANALYTICS_VIEW_ID
 
-Reference file: /home/devel/Documents/env_vars/free_books.txt
+Reference file: /home/devel/Documents/env_vars/free_books_env_vars.txt
 """)
   exit()
 

@@ -15,9 +15,12 @@ num_checks = 1
 #clear_screen()
 
 host_dir = os.path.realpath(__file__).split("book_list_generator.py")[0]
+print("Host Dir:" + host_dir)
 out_dir = host_dir + "docs/"
 books_dir = out_dir + "books/"
+
 book_file = out_dir + "books.html"
+audio_book_file = out_dir + "audiobooks.html"
 index_file = out_dir + "index.html"
 
 rel_books_dir = "./books/"
@@ -186,8 +189,8 @@ def gen_book_list():
     """
 
     edge_data = Get_Data()
-    book_titles = edge_data.book_titles
-    book_links = edge_data.book_links
+    book_titles = edge_data.book_titles1
+    book_links = edge_data.book_links1
 
     with open(book_file, "a") as f:
         num_books = 1
@@ -210,6 +213,168 @@ def gen_book_list():
             num_books += 1
     
         f.write(book_html_p5)
+        f.close()
+
+def gen_book_list_audio():
+    fancy_print("Generating audiobooks.html...", "", 0)
+    books_dir = "./books/"
+    write_dir = "./docs/books/"
+
+    book_html_p1 = """<!DOCTYPE html>
+<html lang="en">
+<head>
+"""
+    
+    book_html_p2 = g_analytics_template
+    
+    book_html_p3 = """
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta 
+        name="description"
+        content="Author: gndpnwd
+        Free PDF books. 
+        Valuable content for free. 
+        No ads, no paywalls, no bullshit.">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/grid.css">
+    <link rel="stylesheet" href="css/button.css">
+
+
+    <title>Freshavacado</title>
+</head>
+<body class="everything">
+    <style>
+        .progress-bar {
+            height: 8px;
+            background: #7DF9FF;
+            width: 0%;
+        }
+
+        .speedcontrolcontainer {
+            width: 100%;
+            display: block;
+            border: 1px solid #000;
+            padding: 10px;
+            font-family: Sans-serif;
+        }
+        .speedcontrolcontainer audio {
+            width: 100%;
+            display: block;
+        }
+        .speedcontrolcontainer div {
+            display: flex;
+            padding: .5em 0;
+            gap: 5px;
+        }
+        .speedcontrolcontainer label {
+            flex: 1;
+        }
+        .speedcontrolcontainer input[type="range"] {
+            flex: 5;
+            color: #7DF9FF;
+        }
+        .speedcontrolcontainer span {
+            flex: 1;
+            text-align: center;
+        }
+
+        p {
+            font-size: 1.5em;
+            text-align: center;
+        }
+    </style>
+
+    <script>
+        // change the speed of the audio based on the slider
+        var audio = document.querySelector('audio');
+        var pbrate = document.querySelector('#pbrate');
+        var pbrateValue = document.querySelector('#pbrate + span');
+        pbrateValue.innerHTML = pbrate.value;
+        pbrate.addEventListener('input', function() {
+          pbrateValue.innerHTML = this.value;
+          audio.playbackRate = this.value;
+        });
+    </script>
+
+    <div class="progress-container">
+        <div class="progress-bar" id="myBar"></div>
+    </div> 
+
+    <script>
+        window.onscroll = function() {progressbar()};
+
+        function progressbar() {
+        var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        var scrolled = (winScroll / height) * 100;
+        document.getElementById("myBar").style.width = scrolled + "%";
+        }
+    </script>
+
+    <h1 class="title">Free Books</h1>
+
+    <h2 class="subtitle">Valuable content for free. <i>No ads, no paywalls, no bullshit.</i></h2>
+"""
+
+    book_html_p5 = """
+    <script>
+        // change the speed of the audio based on the slider
+        var audio = document.querySelector('audio');
+        var pbrate = document.querySelector('#pbrate');
+        var pbrateValue = document.querySelector('#pbrate + span');
+        pbrateValue.innerHTML = pbrate.value;
+        pbrate.addEventListener('input', function() {
+          pbrateValue.innerHTML = this.value;
+          audio.playbackRate = this.value;
+        });
+    </script>
+</body>
+</html>
+    """
+
+    edge_data = Get_Data()
+    book_titles = edge_data.book_titles2
+    book_links = edge_data.book_links2
+
+    with open(audio_book_file, "a") as f:
+        
+        num_books = 1
+        f.write(book_html_p1)
+        f.write(book_html_p2)
+        f.write(book_html_p3)
+        
+        for i in range(len(book_titles)):
+            
+            book_name = book_titles[i].replace("_", " ")
+            book_name = book_name.title()
+            book_link = book_links[i]
+            html_code = (f"""  
+        <div class="audio-player">
+            <br>
+            <br>
+            <p><strong>#{num_books}</strong> 
+            <br>
+                {book_name}
+            </p>
+            <div class="speedcontrolcontainer">
+                <audio src="{book_link}" controls></audio>
+                <div>
+                <label for="pbrate">Speed:</label>
+                <input type="range" id="pbrate" min=.6 max=3 value=1 step=.2>
+                <span></span>
+                </div>
+            </div>
+        </div>
+        """)
+            f.write(html_code)
+            num_books += 1
+    
+        f.write(book_html_p5)
+        f.close()
 
 def gen_index():
     fancy_print("Generating index.html...", "", 0)
@@ -237,7 +402,8 @@ def gen_index():
   <h1 class="title">Free Books</h1>
 
   <h2 class="subtitle">
-    <button class="menu_button"><span onclick="window.location='./books.html'">Discover Books</span></button>
+    <button class="menu_button"><span onclick="window.location='./books.html'">Books</span></button>
+    <button class="menu_button"><span onclick="window.location='./audiobooks.html'">Audiobooks</span></button>
   </h2>
 
   <p class="description-head">Description</p>
@@ -267,6 +433,11 @@ if __name__ == "__main__":
     clear_screen()
     if os.path.exists(book_file):
         os.remove(book_file)
+    if os.path.exists(audio_book_file):
+        os.remove(audio_book_file)
+    if os.path.exists(index_file):
+        os.remove(index_file)
+
     try:
         shutil.rmtree("__pycache__")
         shutil.rmtree("docs/books")
@@ -278,5 +449,6 @@ if __name__ == "__main__":
     #num_books = get_book_data()
     #gen_index(num_books)
     gen_book_list()
+    gen_book_list_audio()
     gen_index()
     fancy_print("Done!", "", 0)
