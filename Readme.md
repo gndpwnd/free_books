@@ -2,6 +2,13 @@
 
 Valuable content for free.
 
+
+### Convert PDF to Audio Book
+
+While it is far from a human voice, [Zamazar](https://zazmar.com) allows for the conversion of a pdf to an mp3 file.
+
+Nevertheless, this tool provides a basis for multiple proof of concepts that will have a great effect in the future.
+
 ### Making Suggestions
 
 1. Create a list of books
@@ -16,3 +23,4 @@ Valuable content for free.
 4. Click the green button below to: 
    1. commit the new file
    2. iniate a new pull request
+
