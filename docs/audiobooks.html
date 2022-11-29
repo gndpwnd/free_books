@@ -204,14 +204,17 @@
         </div>
         
     <script>
-        // change the speed of the audio based on the slider
-        var audio = document.querySelector('audio');
-        var pbrate = document.querySelector('#pbrate');
-        var pbrateValue = document.querySelector('#pbrate + span');
-        pbrateValue.innerHTML = pbrate.value;
-        pbrate.addEventListener('input', function() {
-          pbrateValue.innerHTML = this.value;
-          audio.playbackRate = this.value;
+        // change the speed of the all audio based on the slider
+        const audio_players = document.querySelectorAll('.audio-player');
+        const pbrates = document.querySelectorAll('#pbrate');
+        const pbrateValues = document.querySelectorAll('#pbrate + span');
+        // only change the speed of the selected audio player
+        pbrates.forEach((pbrate, i) => {
+            pbrateValues[i].innerHTML = pbrate.value;
+            pbrate.addEventListener('input', function() {
+                pbrateValues[i].innerHTML = this.value;
+                audio_players[i].querySelector('audio').playbackRate = this.value;
+            });
         });
     </script>
 </body>
