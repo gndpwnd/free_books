@@ -175,7 +175,8 @@ def gen_book_list():
         }
     </script>
 
-    <h1 class="title">Free Books</h1>
+    <!-- <h1 class="title">Free Books</h1> -->
+    <img class="title" src="assets/free_books.webp" alt="Free Books">
 
     <h2 class="subtitle">Valuable content for free. <i>No ads, no paywalls, no bullshit.</i></h2>
 """
@@ -315,7 +316,8 @@ def gen_book_list_audio():
         }
     </script>
 
-    <h1 class="title">Free Books</h1>
+    <!-- <h1 class="title">Free Books</h1> -->
+    <img class="title" src="assets/free_books.webp" alt="Free Books">
 
     <h2 class="subtitle">Valuable content for free. <i>No ads, no paywalls, no bullshit.</i></h2>
 """
@@ -402,7 +404,9 @@ def gen_index():
     <title>Freshavacado</title>
 </head>
 <body class="everything">
-  <h1 class="title">Free Books</h1>
+
+    <!-- <h1 class="title">Free Books</h1> -->
+    <img class="title" src="assets/free_books.webp" alt="Free Books">
 
   <h2 class="subtitle">
     <button class="menu_button"><span onclick="window.location='./books.html'">Books</span></button>
@@ -413,7 +417,7 @@ def gen_index():
 
   <ul class="description">
     <li class="bullet_point">This project aims to collect books that provide incredible value and host them free to download.</li>
-    <li class="bullet_point">Book organization is simply via alphbetical order.</li>
+    <li class="bullet_point">Book organization is simply via alphbetical order per category.</li>
     <li class="bullet_point">Google Analytics is intended to be used to measure this site's impact on the world.</li>
     <li class="bullet_point"><strong>If using Chrome,</strong> it is recommended to <a href="https://chrome.google.com/webstore/detail/pdf-viewer/oemmndcbldboiebfnladdacbdfmadadm/">install this extension</a> to view pdfs rather than downloading them.</li>
   </ul>

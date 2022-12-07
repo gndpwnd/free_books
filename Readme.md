@@ -5,9 +5,11 @@ Valuable content for free.
 
 ### Convert PDF to Audio Book
 
-While it is far from a human voice, [Zamazar](https://zazmar.com) allows for the conversion of a pdf to an mp3 file.
+I use [this script](https://gist.github.com/gndpwnd/cfaa8ee83c24c01c2da7a3ebf44ea97f) to convert PDFs to TXT files. Essentially generate a list of sentences, then a bit of manual tweaking of the TXT file to help normalize the workload for the next tool.
 
-Nevertheless, this tool provides a basis for multiple proof of concepts that will have a great effect in the future.
+I then use [this site](https://audio.online-convert.com/convert/txt-to-mp3) to convert the TXT files into an audible MP3 file.
+
+Additionally, while it is very limited for free use, [Zamazar](https://zazmar.com) provides an alternative for the conversion of TXT to MP3.
 
 ### Making Suggestions
 
