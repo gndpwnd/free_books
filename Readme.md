@@ -2,6 +2,11 @@
 
 Valuable content for free.
 
+### Projects Goals
+
+- To accumulate knowledge for success in life
+- To store such knowldege in an easily accessable library
+- To condense the size of such library to fit the completion of reading withing an average lifespan
 
 ### Convert PDF to Audio Book
 

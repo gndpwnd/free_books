@@ -413,10 +413,17 @@ def gen_index():
     <button class="menu_button"><span onclick="window.location='./audiobooks.html'">Audiobooks</span></button>
   </h2>
 
+  <p class="description-head">Project Goals</p>
+  <ul class="description">
+    <li class="bullet_point">To accumulate knowledge for success in life</li>
+    <li class="bullet_point">To store such knowldege in an easily accessable library</li>
+    <li class="bullet_point">To condense the size of such library to fit the completion of reading withing an average lifespan</li>
+  </ul>
+
   <p class="description-head">Description</p>
 
   <ul class="description">
-    <li class="bullet_point">This project aims to collect books that provide incredible value and host them free to download.</li>
+    <li class="bullet_point">This project uses cloud storage to host content free to download.</li>
     <li class="bullet_point">Book organization is simply via alphbetical order per category.</li>
     <li class="bullet_point">Google Analytics is intended to be used to measure this site's impact on the world.</li>
     <li class="bullet_point"><strong>If using Chrome,</strong> it is recommended to <a href="https://chrome.google.com/webstore/detail/pdf-viewer/oemmndcbldboiebfnladdacbdfmadadm/">install this extension</a> to view pdfs rather than downloading them.</li>
