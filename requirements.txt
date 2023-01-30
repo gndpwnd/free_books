@@ -1,3 +1,3 @@
-colorama==0.4.6
 digital_ocean_spaces==0.2.5
 spaces==0.1.0
+colorama
