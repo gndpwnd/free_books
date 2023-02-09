@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y75RZ4ZSJM"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-Y75RZ4ZSJM');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta 
+        name="description"
+        content="Author: gndpnwd
+        Free PDF books. 
+        Valuable content for free. 
+        No ads, no paywalls, no bullshit.">
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/grid.css">
+    <link rel="stylesheet" href="../css/button.css">
+
+    <title>Freshavacado</title>
+</head>
+<body class="everything">
+
+    <div class="progress-container">
+        <div class="progress-bar" id="myBar"></div>
+    </div> 
+
+    <script>
+        window.onscroll = function() {progressbar()};
+
+        function progressbar() {
+            var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            var scrolled = (winScroll / height) * 100;
+            document.getElementById("myBar").style.width = scrolled + "%";
+        }
+    </script>
+
+    <!-- <h1 class="title">Free Books</h1> -->
+    <a href="https://books.dev00ps.com">
+        <img class="title" src="assets/free_books.webp" alt="Free Books" stye="width:100%;height:100%;">
+    </a>
+
+    <h2 class="subtitle">Valuable content for free. <i>No ads, no paywalls, no bullshit.</i></h2>
+  
+        <div class="audio-player">
+            <br>
+            <br>
+            <p><strong>#1</strong> 
+            <br>
+                A History Of Central Banking
+            </p>
+            <div class="speedcontrolcontainer">
+                <audio src="https://dev00psarchive.nyc3.cdn.digitaloceanspaces.com/archive-books-audio/historical_systems_analysis/A_History_Of_Central_Banking.mp3" controls></audio>
+                <div>
+                <label for="pbrate">Speed:</label>
+                <input type="range" id="pbrate" min=.6 max=3 value=1 step=.2>
+                <span></span>
+                </div>
+            </div>
+        </div>
+          
+        <div class="audio-player">
+            <br>
+            <br>
+            <p><strong>#1</strong> 
+            <br>
+                The Art Of War
+            </p>
+            <div class="speedcontrolcontainer">
+                <audio src="https://dev00psarchive.nyc3.cdn.digitaloceanspaces.com/archive-books-audio/historical_systems_analysis/The_Art_Of_War.mp3" controls></audio>
+                <div>
+                <label for="pbrate">Speed:</label>
+                <input type="range" id="pbrate" min=.6 max=3 value=1 step=.2>
+                <span></span>
+                </div>
+            </div>
+        </div>
+        
+    <script>
+        // change the speed of the all audio based on the slider
+        const audio_players = document.querySelectorAll('.audio-player');
+        const pbrates = document.querySelectorAll('#pbrate');
+        const pbrateValues = document.querySelectorAll('#pbrate + span');
+        // only change the speed of the selected audio player
+        pbrates.forEach((pbrate, i) => {
+            pbrateValues[i].innerHTML = pbrate.value;
+            pbrate.addEventListener('input', function() {
+                pbrateValues[i].innerHTML = this.value;
+                audio_players[i].querySelector('audio').playbackRate = this.value;
+            });
+        });
+    </script>
+</body>
+</html>
+    

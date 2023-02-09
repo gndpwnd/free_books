@@ -1,32 +1,32 @@
 #!/usr/bin/python3
 
-import glob
 import os
 from colorama import Fore
-#import filenamefixer
-import shutil
 from g_analytics import *
 from do_spaces_files import *
 
 prog = Fore.GREEN + "[+] " + Fore.RESET
 
 num_checks = 1
-#filenamefixer.ffixer(num_checks)
-#clear_screen()
 
 host_dir = os.path.realpath(__file__).split("book_list_generator.py")[0]
 print("Host Dir:" + host_dir)
-out_dir = host_dir + "docs/"
-books_dir = out_dir + "books/"
 
-book_file = out_dir + "books.html"
-audio_book_file = out_dir + "audiobooks.html"
-index_file = out_dir + "index.html"
+out_dir = os.path.join(host_dir, "docs")
+if not os.path.exists(out_dir):
+    os.mkdir(out_dir)
 
-rel_books_dir = "./books/"
+books_dir = os.path.join(out_dir, "books")
+if not os.path.exists(books_dir):
+    os.mkdir(books_dir)
 
-book_html_codes = []
-books = {}
+audio_books_dir = os.path.join(out_dir, "audiobooks")
+if not os.path.exists(audio_books_dir):
+    os.mkdir(audio_books_dir)
+
+book_index_file = os.path.join(out_dir, "books.html")
+audio_book_index_file = os.path.join(out_dir, "audiobooks.html")
+main_index_file = os.path.join(out_dir, "index.html")
 
 def clear_screen():
 		if os.name == "nt":
@@ -44,86 +44,17 @@ def fancy_print(str, val, ind):
         else:
             print(indent + Fore.GREEN + "[+] " + Fore.RESET + str + Fore.YELLOW + val + Fore.RESET)
 
-def scan_dir_for_books(books_dir):
+def get_categories(dict):
+    categories = []
+    for key in dict:
+        if dict[key] not in categories:
+            categories.append(dict[key])
+    return categories
 
-    for filename in os.listdir(books_dir):
-        book_name = filename.split(".")[0].replace("_", " ")
-        # replace full dir path with relative path
-
-        book_path = "./" + books_dir.split("docs/")[1]
-        book_path = book_path + filename
-
-        books[book_name] = book_path
-
-def get_book_data():
-    num_books = 1
-    num_books_found = 0
-
-    num_max_dir_depth = 4
-    fancy_print("Scanning for books (only 3 directories deep)...", "", 0)
-
-    for item in os.listdir(books_dir):
-        if os.path.isdir(books_dir + item):
-            new_dir = books_dir + item + "/"
-            
-            for item2 in os.listdir(new_dir):
-                if os.path.isdir(new_dir + item2):
-                    new_dir2 = new_dir + item2 + "/"
-            
-                    for item3 in os.path.isdir(new_dir2 + item3):
-                        if os.path.isdir(new_dir2 + item3):
-                            new_dir3 = new_dir2 + item3 + "/"
-                            
-                            for item4 in os.listdir(new_dir3):
-                                if os.path.isdir(new_dir3 + item4):
-                                    new_dir4 = new_dir3 + item4 + "/"
-                                    fancy_print("Directory depth exceeded. Skipping...", "", 1)
-                                    continue
-
-                                else:
-                                    scan_dir_for_books(new_dir3)
-                                    num_books_found += 1
-
-                        else:
-                            scan_dir_for_books(new_dir2)
-                            num_books_found += 1
-                        
-                else:
-                    scan_dir_for_books(new_dir)
-                    num_books_found += 1
-
-        else:
-            scan_dir_for_books(books_dir)
-            num_books_found += 1
-
-
-    for title in sorted(books.keys()):
-        
-        html_code = (f"""
-        
-        <div class="grid-item">
-            <button class="normal_button"><span onclick="window.open('{books[title]}')"><strong>#{num_books}</strong><br>{title}</span></button>
-        </div>
-
-        """)
-
-        book_html_codes.append(html_code)
-        num_books += 1
-    
-    if num_books == 0:
-        fancy_print("No books found in: ", books_dir, 1)
-    elif num_books == 1:
-        fancy_print("Found " + Fore.YELLOW + str(num_books) + Fore.RESET + " book", "", 1)
-    else:
-        fancy_print("Found " + Fore.YELLOW + str(num_books) + Fore.RESET + " books", "", 1)
-
-    return num_books_found
-
-def gen_book_list():
-
-    fancy_print("Generating books.html...", "", 0)
-    books_dir = "./books/"
-    write_dir = "./docs/books/"
+def gen_book_list(edge_data):
+    book_titles = edge_data.book_titles1
+    book_categorization = edge_data.book_categorization1
+    book_edge_urls = edge_data.book_edge_urls1
 
     book_html_p1 = """<!DOCTYPE html>
 <html lang="en">
@@ -143,22 +74,24 @@ def gen_book_list():
         Free PDF books. 
         Valuable content for free. 
         No ads, no paywalls, no bullshit.">
+"""
 
+    book_html_p4_p1 = """
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/grid.css">
     <link rel="stylesheet" href="css/button.css">
+"""
+    
+    book_html_p4_p2 = """
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/grid.css">
+    <link rel="stylesheet" href="../css/button.css">
+"""
 
-
+    book_html_p5 = """
     <title>Freshavacado</title>
 </head>
 <body class="everything">
-    <style>
-        .progress-bar {
-            height: 8px;
-            background: #7DF9FF;
-            width: 0%;
-        }
-    </style>
 
     <div class="progress-container">
         <div class="progress-bar" id="myBar"></div>
@@ -174,155 +107,180 @@ def gen_book_list():
         document.getElementById("myBar").style.width = scrolled + "%";
         }
     </script>
-
+"""
+    book_html_p6_p1 = """
     <!-- <h1 class="title">Free Books</h1> -->
-    <img class="title" src="assets/free_books.webp" alt="Free Books">
+    <a href="https://books.dev00ps.com">
+        <img class="title" src="assets/free_books.webp" alt="Free Books" stye="width:100%;height:100%;">
+    </a>
 
     <h2 class="subtitle">Valuable content for free. <i>No ads, no paywalls, no bullshit.</i></h2>
 """
 
-    book_html_p4 = "\n\n    <div class=\"grid-container\">"
+    book_html_p6_p2 = """
+    <!-- <h1 class="title">Free Books</h1> -->
+    <a href="https://books.dev00ps.com">
+        <img class="title" src="../assets/free_books.webp" alt="Free Books" stye="width:100%;height:100%;">
+    </a>
+
+    <h2 class="subtitle">Valuable content for free. <i>No ads, no paywalls, no bullshit.</i></h2>
+"""
+
+    book_html_p7 = "\n\n    <div class=\"grid-container\">"
+
+    book_html_p8 = """
+    </div>
+</body>
+</html>
+    """
+    
+    book_categories = get_categories(book_categorization)
+    fancy_print("Generating books.html...", "", 1)
+
+    with open(book_index_file, "w") as f:
+        num_categories = 1
+        f.write(book_html_p1)
+        f.write(book_html_p2)
+        f.write(book_html_p3)
+        f.write(book_html_p4_p1)
+        f.write(book_html_p5)
+        f.write(book_html_p6_p1)
+        f.write(book_html_p7)
+        
+        for i in range(len(book_categories)):
+            
+            category_name = book_categories[i]
+            link_name = category_name.replace(" ", "_")
+            html_code = (f"""  
+        <div class="grid-item">
+            <button class="normal_button"><span onclick="window.open('books/{link_name}.html')"><strong>#{num_categories}</strong><br>{category_name}</span></button>
+        </div>
+        """)
+            f.write(html_code)
+            num_categories += 1
+    
+        f.write(book_html_p8)
+        f.close()
+    
+    fancy_print("Creating category pages...", "", 1)
+    for i in range(len(book_categories)):
+        # start writing a new html file, but this time instead of book categories, use book names
+        category_name = book_categories[i]
+        link_name = category_name.replace(" ", "_")
+        fancy_print("Generating " + link_name + ".html...", "", 2)
+        path_to_file = os.path.join(books_dir, link_name + ".html")
+        
+        with open(path_to_file, "w") as f:
+            num_books = 1
+            f.write(book_html_p1)
+            f.write(book_html_p2)
+            f.write(book_html_p3)
+            f.write(book_html_p4_p2)
+            f.write(book_html_p5)
+            f.write(book_html_p6_p2)
+            f.write(book_html_p7)
+            
+            for j in range(len(book_titles)):
+                book_name = book_titles[j]
+                if book_categorization[book_name] == category_name:
+                    book_link = book_edge_urls[book_name]
+                    html_code = (f"""  
+            <div class="grid-item">
+                <button class="normal_button"><span onclick="window.open('{book_link}')"><strong>#{num_books}</strong><br>{book_name}</span></button>
+            </div>
+            """)
+                    f.write(html_code)
+                    num_books += 1
+        
+            f.write(book_html_p8)
+            f.close()
+
+def gen_book_list_audio(edge_data):
+
+    book_titles = edge_data.book_titles2
+    book_categorization = edge_data.book_categorization2
+    book_edge_urls = edge_data.book_edge_urls2
+
+    book_html_p1 = """<!DOCTYPE html>
+<html lang="en">
+<head>
+"""
+    
+    book_html_p2 = g_analytics_template
+    
+    book_html_p3 = """
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta 
+        name="description"
+        content="Author: gndpnwd
+        Free PDF books. 
+        Valuable content for free. 
+        No ads, no paywalls, no bullshit.">
+"""
+    
+    book_html_p4_p1 = """
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/grid.css">
+    <link rel="stylesheet" href="css/button.css">
+"""
+
+    book_html_p4_p2 = """
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/grid.css">
+    <link rel="stylesheet" href="../css/button.css">
+"""
 
     book_html_p5 = """
+    <title>Freshavacado</title>
+</head>
+<body class="everything">
+
+    <div class="progress-container">
+        <div class="progress-bar" id="myBar"></div>
+    </div> 
+
+    <script>
+        window.onscroll = function() {progressbar()};
+
+        function progressbar() {
+            var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            var scrolled = (winScroll / height) * 100;
+            document.getElementById("myBar").style.width = scrolled + "%";
+        }
+    </script>
+"""
+
+    book_html_p6_p1 = """
+    <!-- <h1 class="title">Free Books</h1> -->
+    <a href="https://books.dev00ps.com">
+        <img class="title" src="assets/free_books.webp" alt="Free Books" stye="width:100%;height:100%;">
+    </a>
+
+    <h2 class="subtitle">Valuable content for free. <i>No ads, no paywalls, no bullshit.</i></h2>
+"""
+
+    book_html_p6_p2 = """
+    <!-- <h1 class="title">Free Books</h1> -->
+    <a href="https://books.dev00ps.com">
+        <img class="title" src="assets/free_books.webp" alt="Free Books" stye="width:100%;height:100%;">
+    </a>
+
+    <h2 class="subtitle">Valuable content for free. <i>No ads, no paywalls, no bullshit.</i></h2>
+"""
+
+    book_html_p7 = "\n\n    <div class=\"grid-container\">"
+
+    book_html_p8_p1 = """
     </div>
 </body>
 </html>
     """
 
-    edge_data = Get_Data()
-    book_titles = edge_data.book_titles1
-    book_links = edge_data.book_links1
-
-    with open(book_file, "a") as f:
-        num_books = 1
-        f.write(book_html_p1)
-        f.write(book_html_p2)
-        f.write(book_html_p3)
-        f.write(book_html_p4)
-        
-        for i in range(len(book_titles)):
-            
-            book_name = book_titles[i].replace("_", " ")
-            book_name = book_name.title()
-            book_link = book_links[i]
-            html_code = (f"""  
-        <div class="grid-item">
-            <button class="normal_button"><span onclick="window.open('{book_link}')"><strong>#{num_books}</strong><br>{book_name}</span></button>
-        </div>
-        """)
-            f.write(html_code)
-            num_books += 1
-    
-        f.write(book_html_p5)
-        f.close()
-
-def gen_book_list_audio():
-    fancy_print("Generating audiobooks.html...", "", 0)
-    books_dir = "./books/"
-    write_dir = "./docs/books/"
-
-    book_html_p1 = """<!DOCTYPE html>
-<html lang="en">
-<head>
-"""
-    
-    book_html_p2 = g_analytics_template
-    
-    book_html_p3 = """
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <meta 
-        name="description"
-        content="Author: gndpnwd
-        Free PDF books. 
-        Valuable content for free. 
-        No ads, no paywalls, no bullshit.">
-
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/grid.css">
-    <link rel="stylesheet" href="css/button.css">
-
-
-    <title>Freshavacado</title>
-</head>
-<body class="everything">
-    <style>
-        .progress-bar {
-            height: 8px;
-            background: #7DF9FF;
-            width: 0%;
-        }
-
-        .speedcontrolcontainer {
-            width: 100%;
-            display: block;
-            border: 1px solid #000;
-            padding: 10px;
-            font-family: Sans-serif;
-        }
-        .speedcontrolcontainer audio {
-            width: 100%;
-            display: block;
-        }
-        .speedcontrolcontainer div {
-            display: flex;
-            padding: .5em 0;
-            gap: 5px;
-        }
-        .speedcontrolcontainer label {
-            flex: 1;
-        }
-        .speedcontrolcontainer input[type="range"] {
-            flex: 5;
-            color: #7DF9FF;
-        }
-        .speedcontrolcontainer span {
-            flex: 1;
-            text-align: center;
-        }
-
-        p {
-            font-size: 1.5em;
-            text-align: center;
-        }
-    </style>
-
-    <script>
-        // change the speed of the audio based on the slider
-        var audio = document.querySelector('audio');
-        var pbrate = document.querySelector('#pbrate');
-        var pbrateValue = document.querySelector('#pbrate + span');
-        pbrateValue.innerHTML = pbrate.value;
-        pbrate.addEventListener('input', function() {
-          pbrateValue.innerHTML = this.value;
-          audio.playbackRate = this.value;
-        });
-    </script>
-
-    <div class="progress-container">
-        <div class="progress-bar" id="myBar"></div>
-    </div> 
-
-    <script>
-        window.onscroll = function() {progressbar()};
-
-        function progressbar() {
-        var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-        var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        var scrolled = (winScroll / height) * 100;
-        document.getElementById("myBar").style.width = scrolled + "%";
-        }
-    </script>
-
-    <!-- <h1 class="title">Free Books</h1> -->
-    <img class="title" src="assets/free_books.webp" alt="Free Books">
-
-    <h2 class="subtitle">Valuable content for free. <i>No ads, no paywalls, no bullshit.</i></h2>
-"""
-
-    book_html_p5 = """
+    book_html_p8_p2 = """
     <script>
         // change the speed of the all audio based on the slider
         const audio_players = document.querySelectorAll('.audio-player');
@@ -341,23 +299,56 @@ def gen_book_list_audio():
 </html>
     """
 
-    edge_data = Get_Data()
-    book_titles = edge_data.book_titles2
-    book_links = edge_data.book_links2
 
-    with open(audio_book_file, "a") as f:
-        
-        num_books = 1
+    book_categories = get_categories(book_categorization)
+    fancy_print("Generating audiobooks.html...", "", 1)
+
+    with open(audio_book_index_file, "w") as f:
+        num_categories = 1
         f.write(book_html_p1)
         f.write(book_html_p2)
         f.write(book_html_p3)
+        f.write(book_html_p4_p1)
+        f.write(book_html_p5)
+        f.write(book_html_p6_p1)
+        f.write(book_html_p7)
         
-        for i in range(len(book_titles)):
+        for i in range(len(book_categories)):
             
-            book_name = book_titles[i].replace("_", " ")
-            book_name = book_name.title()
-            book_link = book_links[i]
+            category_name = book_categories[i]
+            link_name = category_name.replace(" ", "_")
             html_code = (f"""  
+        <div class="grid-item">
+            <button class="normal_button"><span onclick="window.open('audiobooks/{link_name}.html')"><strong>#{num_categories}</strong><br>{category_name}</span></button>
+        </div>
+        """)
+            f.write(html_code)
+            num_categories += 1
+    
+        f.write(book_html_p8_p1)
+        f.close()
+
+    fancy_print("Creating category pages...", "", 1)
+    for i in range(len(book_categories)):
+        category_name = book_categories[i]
+        link_name = category_name.replace(" ", "_")
+        fancy_print("Generating " + link_name + ".html...", "", 2)
+        path_to_file = os.path.join(audio_books_dir, link_name + ".html")
+
+        with open(path_to_file, "w") as f:
+            num_books = 1
+            f.write(book_html_p1)
+            f.write(book_html_p2)
+            f.write(book_html_p3)
+            f.write(book_html_p4_p2)
+            f.write(book_html_p5)
+            f.write(book_html_p6_p2)
+
+            for j in range(len(book_titles)):
+                book_name = book_titles[j]
+                if book_categorization[book_name] == category_name:
+                    book_link = book_edge_urls[book_name]
+                    html_code = (f"""  
         <div class="audio-player">
             <br>
             <br>
@@ -375,11 +366,11 @@ def gen_book_list_audio():
             </div>
         </div>
         """)
-            f.write(html_code)
+                    f.write(html_code)
             num_books += 1
     
-        f.write(book_html_p5)
-        f.close()
+            f.write(book_html_p8_p2)
+            f.close()
 
 def gen_index():
     fancy_print("Generating index.html...", "", 0)
@@ -406,7 +397,9 @@ def gen_index():
 <body class="everything">
 
     <!-- <h1 class="title">Free Books</h1> -->
-    <img class="title" src="assets/free_books.webp" alt="Free Books">
+    <a href="https://books.dev00ps.com">
+        <img class="title" src="assets/free_books.webp" alt="Free Books" stye="width:100%;height:100%;">
+    </a>
 
   <h2 class="subtitle">
     <button class="menu_button"><span onclick="window.location='./books.html'">Books</span></button>
@@ -437,32 +430,18 @@ def gen_index():
   </body>
 </html>
 """
-    with open(index_file, "w") as f:
+    with open(main_index_file, "w") as f:
         f.write(index_html_p1)
         f.write(index_html_p2)
         f.write(index_html_p3)
 
-
 if __name__ == "__main__":
     clear_screen()
-    if os.path.exists(book_file):
-        os.remove(book_file)
-    if os.path.exists(audio_book_file):
-        os.remove(audio_book_file)
-    if os.path.exists(index_file):
-        os.remove(index_file)
-
-    try:
-        shutil.rmtree("__pycache__")
-        shutil.rmtree("docs/books")
-    except:
-        pass
-    print("\n\n")
-    fancy_print("Using directory: ", books_dir, 0)
+    fancy_print("Using directory: ", host_dir, 0)
     fancy_print("Outputting to: ", out_dir, 0)
-    #num_books = get_book_data()
-    #gen_index(num_books)
-    gen_book_list()
-    gen_book_list_audio()
+    fancy_print("Getting Library Data...", "", 0)
+    edge_data = Get_Data()
+    gen_book_list(edge_data)
+    gen_book_list_audio(edge_data)
     gen_index()
     fancy_print("Done!", "", 0)

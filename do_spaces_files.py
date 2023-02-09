@@ -1,7 +1,5 @@
-# main.py
 from spaces import Client
 import os
-import urllib.parse
 
 
 def os_env_err():
@@ -35,6 +33,7 @@ class Get_Data:
   wierd_names = [
     "({"
   ]
+
   try:
     space_name = os.getenv('SPACE_NAME')
     space_region = os.getenv('SPACE_REGION')
@@ -47,43 +46,61 @@ class Get_Data:
     space_name = space_name, # Optional, can be set in spaces/env.yaml and/or be updated with <client>.set_space(space_name)
     public_key = os.getenv('SPACE_PUB_KEY'), # Required, but can set key in spaces/env.yaml                                                                         
     secret_key = os.getenv('SPACE_SEC_KEY'), # Required, but can set key in spaces/env.yaml
-
     # If any of region_name, public_key or secret_key are not provided, Client will override all values with env.yaml values.
-
   )
 
   def get_books_pdf(self):
-    data = self.client.list_files("archive-books/")
+    folder_name = "archive-books/"
+    data = self.client.list_files(folder_name)
     return data
   
   def get_books_audio(self):
-    data = self.client.list_files("archive-books-audio/")
+    folder_name = "archive-books-audio/"
+    data = self.client.list_files(folder_name)
     return data
 
   def reorg_json_data(self, data):
-    book_links = []
     book_titles = []
+    book_edge_urls = {}
+    # books are stored in different folders, the folder names are the book categories
+    book_categorization = {}
+    
+    # split data into a list
     data = str(data).split("'Key': '")
 
     for item in data:
-      for char in self.chars_2_replace:
-        new_item = item.replace(char, "")
-      # get book link
-      book_link = new_item.split("',")[0]
-      book_link = self.start_url + book_link
-      book_links.append(book_link)
-      # get book title
-      book_title = book_link.split("/")[-1]
-      book_title = book_title.split(".")[0]
-      book_title = book_title.replace("_", " ")
-      book_titles.append(book_title)
+      if item in self.wierd_names:
+        pass
+      else:
 
-    for name in self.wierd_names:
-      index = book_titles.index(name)
-      book_titles.remove(book_titles[index])
-      book_links.remove(book_links[index])
+        # replace some chars
+        for char in self.chars_2_replace:
+          new_item = item.replace(char, "")
+        
+        # get the folder that the book is in
+        # get book path
+        book_path = new_item.split("',")[0]
+        #print(book_path)
+  
+        #book_links.append(book_link)
+        # get book title
+        book_title = book_path.split("/")[-1]
+        book_title = book_title.split(".")[0]
+        book_title = book_title.replace("_", " ")
+        book_titles.append(book_title)
 
-    return book_links, book_titles
+        # get book edge url
+        book_link = self.start_url + book_path
+        book_edge_urls[book_title] = book_link
+
+        # keep track of book categories
+        book_category = book_path.split("/")[1]
+        book_category = book_category.replace("_", " ")
+        book_category = book_category.title()
+        # add the book's name and category to book_categorization
+        book_categorization[book_title] = book_category
+
+    return book_titles, book_categorization, book_edge_urls
 
   def clean(self, infile, outfile):
     if os.path.exists(infile):
@@ -97,8 +114,8 @@ class Get_Data:
       
       data2 = self.get_books_audio()
 
-      self.book_links1, self.book_titles1 = self.reorg_json_data(data1)
-      self.book_links2, self.book_titles2 = self.reorg_json_data(data2)
+      self.book_titles1, self.book_categorization1, self.book_edge_urls1 = self.reorg_json_data(data1)
+      self.book_titles2, self.book_categorization2, self.book_edge_urls2 = self.reorg_json_data(data2)
 
 def test():
   
@@ -106,17 +123,25 @@ def test():
 
   data = Get_Data()
 
-  book_links1  = data.book_links1
   book_titles1 = data.book_titles1
-  
-  book_links2  = data.book_links2
+  book_categorization1 = data.book_categorization1
+  book_edge_urls2 = data.book_edge_urls1
+
   book_titles2 = data.book_titles2
+  book_categorization2 = data.book_categorization2
+  book_edge_urls2 = data.book_edge_urls2
 
+  #print(book_titles1)
+  #for book in book_categorization1:
+  #  print("\"" + book + "\",\"" + book_categorization1[book] + "\"")
+  #for book in book_edge_urls2:
+  #  print("\"" + book + "\",\"" + book_edge_urls2[book] + "\"")
+  
+  
+  #print(len(book_titles1))
 
-  print(book_links1)
-  print(book_titles1)
-
-  print(book_links2)
-  print(book_titles2)
+  #print(book_titles2)
+  #print(len(book_links2))
+  #print(len(book_titles2))
 
 #test()

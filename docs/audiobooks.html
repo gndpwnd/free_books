@@ -25,62 +25,9 @@
     <link rel="stylesheet" href="css/grid.css">
     <link rel="stylesheet" href="css/button.css">
 
-
     <title>Freshavacado</title>
 </head>
 <body class="everything">
-    <style>
-        .progress-bar {
-            height: 8px;
-            background: #7DF9FF;
-            width: 0%;
-        }
-
-        .speedcontrolcontainer {
-            width: 100%;
-            display: block;
-            border: 1px solid #000;
-            padding: 10px;
-            font-family: Sans-serif;
-        }
-        .speedcontrolcontainer audio {
-            width: 100%;
-            display: block;
-        }
-        .speedcontrolcontainer div {
-            display: flex;
-            padding: .5em 0;
-            gap: 5px;
-        }
-        .speedcontrolcontainer label {
-            flex: 1;
-        }
-        .speedcontrolcontainer input[type="range"] {
-            flex: 5;
-            color: #7DF9FF;
-        }
-        .speedcontrolcontainer span {
-            flex: 1;
-            text-align: center;
-        }
-
-        p {
-            font-size: 1.5em;
-            text-align: center;
-        }
-    </style>
-
-    <script>
-        // change the speed of the audio based on the slider
-        var audio = document.querySelector('audio');
-        var pbrate = document.querySelector('#pbrate');
-        var pbrateValue = document.querySelector('#pbrate + span');
-        pbrateValue.innerHTML = pbrate.value;
-        pbrate.addEventListener('input', function() {
-          pbrateValue.innerHTML = this.value;
-          audio.playbackRate = this.value;
-        });
-    </script>
 
     <div class="progress-container">
         <div class="progress-bar" id="myBar"></div>
@@ -90,474 +37,55 @@
         window.onscroll = function() {progressbar()};
 
         function progressbar() {
-        var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-        var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        var scrolled = (winScroll / height) * 100;
-        document.getElementById("myBar").style.width = scrolled + "%";
+            var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            var scrolled = (winScroll / height) * 100;
+            document.getElementById("myBar").style.width = scrolled + "%";
         }
     </script>
 
     <!-- <h1 class="title">Free Books</h1> -->
-    <img class="title" src="assets/free_books.webp" alt="Free Books">
+    <a href="https://books.dev00ps.com">
+        <img class="title" src="assets/free_books.webp" alt="Free Books" stye="width:100%;height:100%;">
+    </a>
 
     <h2 class="subtitle">Valuable content for free. <i>No ads, no paywalls, no bullshit.</i></h2>
-  
-        <div class="audio-player">
-            <br>
-            <br>
-            <p><strong>#1</strong> 
-            <br>
-                0 To 1
-            </p>
-            <div class="speedcontrolcontainer">
-                <audio src="https://dev00psarchive.nyc3.cdn.digitaloceanspaces.com/archive-books-audio/business/0_To_1.mp3" controls></audio>
-                <div>
-                <label for="pbrate">Speed:</label>
-                <input type="range" id="pbrate" min=.6 max=3 value=1 step=.2>
-                <span></span>
-                </div>
-            </div>
+
+
+    <div class="grid-container">  
+        <div class="grid-item">
+            <button class="normal_button"><span onclick="window.open('audiobooks/Business.html')"><strong>#1</strong><br>Business</span></button>
         </div>
           
-        <div class="audio-player">
-            <br>
-            <br>
-            <p><strong>#2</strong> 
-            <br>
-                100M Offers
-            </p>
-            <div class="speedcontrolcontainer">
-                <audio src="https://dev00psarchive.nyc3.cdn.digitaloceanspaces.com/archive-books-audio/business/100M_Offers.mp3" controls></audio>
-                <div>
-                <label for="pbrate">Speed:</label>
-                <input type="range" id="pbrate" min=.6 max=3 value=1 step=.2>
-                <span></span>
-                </div>
-            </div>
+        <div class="grid-item">
+            <button class="normal_button"><span onclick="window.open('audiobooks/Character_Building.html')"><strong>#2</strong><br>Character Building</span></button>
         </div>
           
-        <div class="audio-player">
-            <br>
-            <br>
-            <p><strong>#3</strong> 
-            <br>
-                Expert Secrets
-            </p>
-            <div class="speedcontrolcontainer">
-                <audio src="https://dev00psarchive.nyc3.cdn.digitaloceanspaces.com/archive-books-audio/business/Expert_Secrets.mp3" controls></audio>
-                <div>
-                <label for="pbrate">Speed:</label>
-                <input type="range" id="pbrate" min=.6 max=3 value=1 step=.2>
-                <span></span>
-                </div>
-            </div>
+        <div class="grid-item">
+            <button class="normal_button"><span onclick="window.open('audiobooks/Historical_Systems_Analysis.html')"><strong>#3</strong><br>Historical Systems Analysis</span></button>
         </div>
           
-        <div class="audio-player">
-            <br>
-            <br>
-            <p><strong>#4</strong> 
-            <br>
-                Gym Launch
-            </p>
-            <div class="speedcontrolcontainer">
-                <audio src="https://dev00psarchive.nyc3.cdn.digitaloceanspaces.com/archive-books-audio/business/Gym_Launch.mp3" controls></audio>
-                <div>
-                <label for="pbrate">Speed:</label>
-                <input type="range" id="pbrate" min=.6 max=3 value=1 step=.2>
-                <span></span>
-                </div>
-            </div>
+        <div class="grid-item">
+            <button class="normal_button"><span onclick="window.open('audiobooks/Mindset.html')"><strong>#4</strong><br>Mindset</span></button>
         </div>
           
-        <div class="audio-player">
-            <br>
-            <br>
-            <p><strong>#5</strong> 
-            <br>
-                Rich Dad Poor Dad
-            </p>
-            <div class="speedcontrolcontainer">
-                <audio src="https://dev00psarchive.nyc3.cdn.digitaloceanspaces.com/archive-books-audio/business/Rich_Dad_Poor_Dad.mp3" controls></audio>
-                <div>
-                <label for="pbrate">Speed:</label>
-                <input type="range" id="pbrate" min=.6 max=3 value=1 step=.2>
-                <span></span>
-                </div>
-            </div>
+        <div class="grid-item">
+            <button class="normal_button"><span onclick="window.open('audiobooks/Psychology_And_Psychiatry.html')"><strong>#5</strong><br>Psychology And Psychiatry</span></button>
         </div>
           
-        <div class="audio-player">
-            <br>
-            <br>
-            <p><strong>#6</strong> 
-            <br>
-                The Innovators Dilemma
-            </p>
-            <div class="speedcontrolcontainer">
-                <audio src="https://dev00psarchive.nyc3.cdn.digitaloceanspaces.com/archive-books-audio/business/The_Innovators_Dilemma.mp3" controls></audio>
-                <div>
-                <label for="pbrate">Speed:</label>
-                <input type="range" id="pbrate" min=.6 max=3 value=1 step=.2>
-                <span></span>
-                </div>
-            </div>
+        <div class="grid-item">
+            <button class="normal_button"><span onclick="window.open('audiobooks/Relationships.html')"><strong>#6</strong><br>Relationships</span></button>
         </div>
           
-        <div class="audio-player">
-            <br>
-            <br>
-            <p><strong>#7</strong> 
-            <br>
-                The Richest Man In Babylon
-            </p>
-            <div class="speedcontrolcontainer">
-                <audio src="https://dev00psarchive.nyc3.cdn.digitaloceanspaces.com/archive-books-audio/business/The_Richest_Man_In_Babylon.mp3" controls></audio>
-                <div>
-                <label for="pbrate">Speed:</label>
-                <input type="range" id="pbrate" min=.6 max=3 value=1 step=.2>
-                <span></span>
-                </div>
-            </div>
+        <div class="grid-item">
+            <button class="normal_button"><span onclick="window.open('audiobooks/Survival.html')"><strong>#7</strong><br>Survival</span></button>
         </div>
           
-        <div class="audio-player">
-            <br>
-            <br>
-            <p><strong>#8</strong> 
-            <br>
-                Way Of The Wolf
-            </p>
-            <div class="speedcontrolcontainer">
-                <audio src="https://dev00psarchive.nyc3.cdn.digitaloceanspaces.com/archive-books-audio/business/Way_Of_The_Wolf.mp3" controls></audio>
-                <div>
-                <label for="pbrate">Speed:</label>
-                <input type="range" id="pbrate" min=.6 max=3 value=1 step=.2>
-                <span></span>
-                </div>
-            </div>
-        </div>
-          
-        <div class="audio-player">
-            <br>
-            <br>
-            <p><strong>#9</strong> 
-            <br>
-                Scars And Stripes
-            </p>
-            <div class="speedcontrolcontainer">
-                <audio src="https://dev00psarchive.nyc3.cdn.digitaloceanspaces.com/archive-books-audio/character_building/Scars_And_Stripes.mp3" controls></audio>
-                <div>
-                <label for="pbrate">Speed:</label>
-                <input type="range" id="pbrate" min=.6 max=3 value=1 step=.2>
-                <span></span>
-                </div>
-            </div>
-        </div>
-          
-        <div class="audio-player">
-            <br>
-            <br>
-            <p><strong>#10</strong> 
-            <br>
-                Sun And Steel
-            </p>
-            <div class="speedcontrolcontainer">
-                <audio src="https://dev00psarchive.nyc3.cdn.digitaloceanspaces.com/archive-books-audio/character_building/Sun_And_Steel.mp3" controls></audio>
-                <div>
-                <label for="pbrate">Speed:</label>
-                <input type="range" id="pbrate" min=.6 max=3 value=1 step=.2>
-                <span></span>
-                </div>
-            </div>
-        </div>
-          
-        <div class="audio-player">
-            <br>
-            <br>
-            <p><strong>#11</strong> 
-            <br>
-                The Kybalion
-            </p>
-            <div class="speedcontrolcontainer">
-                <audio src="https://dev00psarchive.nyc3.cdn.digitaloceanspaces.com/archive-books-audio/character_building/The_Kybalion.mp3" controls></audio>
-                <div>
-                <label for="pbrate">Speed:</label>
-                <input type="range" id="pbrate" min=.6 max=3 value=1 step=.2>
-                <span></span>
-                </div>
-            </div>
-        </div>
-          
-        <div class="audio-player">
-            <br>
-            <br>
-            <p><strong>#12</strong> 
-            <br>
-                The Unplugged Alpha
-            </p>
-            <div class="speedcontrolcontainer">
-                <audio src="https://dev00psarchive.nyc3.cdn.digitaloceanspaces.com/archive-books-audio/character_building/The_Unplugged_Alpha.mp3" controls></audio>
-                <div>
-                <label for="pbrate">Speed:</label>
-                <input type="range" id="pbrate" min=.6 max=3 value=1 step=.2>
-                <span></span>
-                </div>
-            </div>
-        </div>
-          
-        <div class="audio-player">
-            <br>
-            <br>
-            <p><strong>#13</strong> 
-            <br>
-                A History Of Central Banking
-            </p>
-            <div class="speedcontrolcontainer">
-                <audio src="https://dev00psarchive.nyc3.cdn.digitaloceanspaces.com/archive-books-audio/historical_systems_analysis/A_History_Of_Central_Banking.mp3" controls></audio>
-                <div>
-                <label for="pbrate">Speed:</label>
-                <input type="range" id="pbrate" min=.6 max=3 value=1 step=.2>
-                <span></span>
-                </div>
-            </div>
-        </div>
-          
-        <div class="audio-player">
-            <br>
-            <br>
-            <p><strong>#14</strong> 
-            <br>
-                The Art Of War
-            </p>
-            <div class="speedcontrolcontainer">
-                <audio src="https://dev00psarchive.nyc3.cdn.digitaloceanspaces.com/archive-books-audio/historical_systems_analysis/The_Art_Of_War.mp3" controls></audio>
-                <div>
-                <label for="pbrate">Speed:</label>
-                <input type="range" id="pbrate" min=.6 max=3 value=1 step=.2>
-                <span></span>
-                </div>
-            </div>
-        </div>
-          
-        <div class="audio-player">
-            <br>
-            <br>
-            <p><strong>#15</strong> 
-            <br>
-                Outwitting The Devil
-            </p>
-            <div class="speedcontrolcontainer">
-                <audio src="https://dev00psarchive.nyc3.cdn.digitaloceanspaces.com/archive-books-audio/mindset/Outwitting_The_Devil.mp3" controls></audio>
-                <div>
-                <label for="pbrate">Speed:</label>
-                <input type="range" id="pbrate" min=.6 max=3 value=1 step=.2>
-                <span></span>
-                </div>
-            </div>
-        </div>
-          
-        <div class="audio-player">
-            <br>
-            <br>
-            <p><strong>#16</strong> 
-            <br>
-                Tao Te Ching
-            </p>
-            <div class="speedcontrolcontainer">
-                <audio src="https://dev00psarchive.nyc3.cdn.digitaloceanspaces.com/archive-books-audio/mindset/Tao_Te_Ching.mp3" controls></audio>
-                <div>
-                <label for="pbrate">Speed:</label>
-                <input type="range" id="pbrate" min=.6 max=3 value=1 step=.2>
-                <span></span>
-                </div>
-            </div>
-        </div>
-          
-        <div class="audio-player">
-            <br>
-            <br>
-            <p><strong>#17</strong> 
-            <br>
-                12 Rules Beyond Order
-            </p>
-            <div class="speedcontrolcontainer">
-                <audio src="https://dev00psarchive.nyc3.cdn.digitaloceanspaces.com/archive-books-audio/psychology_and_psychiatry/12_Rules_Beyond_Order.mp3" controls></audio>
-                <div>
-                <label for="pbrate">Speed:</label>
-                <input type="range" id="pbrate" min=.6 max=3 value=1 step=.2>
-                <span></span>
-                </div>
-            </div>
-        </div>
-          
-        <div class="audio-player">
-            <br>
-            <br>
-            <p><strong>#18</strong> 
-            <br>
-                12 Rules For Life
-            </p>
-            <div class="speedcontrolcontainer">
-                <audio src="https://dev00psarchive.nyc3.cdn.digitaloceanspaces.com/archive-books-audio/psychology_and_psychiatry/12_Rules_For_Life.mp3" controls></audio>
-                <div>
-                <label for="pbrate">Speed:</label>
-                <input type="range" id="pbrate" min=.6 max=3 value=1 step=.2>
-                <span></span>
-                </div>
-            </div>
-        </div>
-          
-        <div class="audio-player">
-            <br>
-            <br>
-            <p><strong>#19</strong> 
-            <br>
-                The 50Th Law
-            </p>
-            <div class="speedcontrolcontainer">
-                <audio src="https://dev00psarchive.nyc3.cdn.digitaloceanspaces.com/archive-books-audio/psychology_and_psychiatry/The_50Th_Law.mp3" controls></audio>
-                <div>
-                <label for="pbrate">Speed:</label>
-                <input type="range" id="pbrate" min=.6 max=3 value=1 step=.2>
-                <span></span>
-                </div>
-            </div>
-        </div>
-          
-        <div class="audio-player">
-            <br>
-            <br>
-            <p><strong>#20</strong> 
-            <br>
-                How To Win Friends And Influence People
-            </p>
-            <div class="speedcontrolcontainer">
-                <audio src="https://dev00psarchive.nyc3.cdn.digitaloceanspaces.com/archive-books-audio/relationships/How_To_Win_Friends_And_Influence_People.mp3" controls></audio>
-                <div>
-                <label for="pbrate">Speed:</label>
-                <input type="range" id="pbrate" min=.6 max=3 value=1 step=.2>
-                <span></span>
-                </div>
-            </div>
-        </div>
-          
-        <div class="audio-player">
-            <br>
-            <br>
-            <p><strong>#21</strong> 
-            <br>
-                The Mystery Method
-            </p>
-            <div class="speedcontrolcontainer">
-                <audio src="https://dev00psarchive.nyc3.cdn.digitaloceanspaces.com/archive-books-audio/relationships/The_Mystery_Method.mp3" controls></audio>
-                <div>
-                <label for="pbrate">Speed:</label>
-                <input type="range" id="pbrate" min=.6 max=3 value=1 step=.2>
-                <span></span>
-                </div>
-            </div>
-        </div>
-          
-        <div class="audio-player">
-            <br>
-            <br>
-            <p><strong>#22</strong> 
-            <br>
-                The Rational Male
-            </p>
-            <div class="speedcontrolcontainer">
-                <audio src="https://dev00psarchive.nyc3.cdn.digitaloceanspaces.com/archive-books-audio/relationships/The_Rational_Male.mp3" controls></audio>
-                <div>
-                <label for="pbrate">Speed:</label>
-                <input type="range" id="pbrate" min=.6 max=3 value=1 step=.2>
-                <span></span>
-                </div>
-            </div>
-        </div>
-          
-        <div class="audio-player">
-            <br>
-            <br>
-            <p><strong>#23</strong> 
-            <br>
-                The School Of Greatness
-            </p>
-            <div class="speedcontrolcontainer">
-                <audio src="https://dev00psarchive.nyc3.cdn.digitaloceanspaces.com/archive-books-audio/relationships/The_School_Of_Greatness.mp3" controls></audio>
-                <div>
-                <label for="pbrate">Speed:</label>
-                <input type="range" id="pbrate" min=.6 max=3 value=1 step=.2>
-                <span></span>
-                </div>
-            </div>
-        </div>
-          
-        <div class="audio-player">
-            <br>
-            <br>
-            <p><strong>#24</strong> 
-            <br>
-                100 Deadly Skills
-            </p>
-            <div class="speedcontrolcontainer">
-                <audio src="https://dev00psarchive.nyc3.cdn.digitaloceanspaces.com/archive-books-audio/survival/100_Deadly_Skills.mp3" controls></audio>
-                <div>
-                <label for="pbrate">Speed:</label>
-                <input type="range" id="pbrate" min=.6 max=3 value=1 step=.2>
-                <span></span>
-                </div>
-            </div>
-        </div>
-          
-        <div class="audio-player">
-            <br>
-            <br>
-            <p><strong>#25</strong> 
-            <br>
-                Catch Me If You Can
-            </p>
-            <div class="speedcontrolcontainer">
-                <audio src="https://dev00psarchive.nyc3.cdn.digitaloceanspaces.com/archive-books-audio/survival/Catch_Me_If_You_Can.mp3" controls></audio>
-                <div>
-                <label for="pbrate">Speed:</label>
-                <input type="range" id="pbrate" min=.6 max=3 value=1 step=.2>
-                <span></span>
-                </div>
-            </div>
-        </div>
-          
-        <div class="audio-player">
-            <br>
-            <br>
-            <p><strong>#26</strong> 
-            <br>
-                Estrogeneration
-            </p>
-            <div class="speedcontrolcontainer">
-                <audio src="https://dev00psarchive.nyc3.cdn.digitaloceanspaces.com/archive-books-audio/the_state_of_the_world/Estrogeneration.mp3" controls></audio>
-                <div>
-                <label for="pbrate">Speed:</label>
-                <input type="range" id="pbrate" min=.6 max=3 value=1 step=.2>
-                <span></span>
-                </div>
-            </div>
+        <div class="grid-item">
+            <button class="normal_button"><span onclick="window.open('audiobooks/The_State_Of_The_World.html')"><strong>#8</strong><br>The State Of The World</span></button>
         </div>
         
-    <script>
-        // change the speed of the all audio based on the slider
-        const audio_players = document.querySelectorAll('.audio-player');
-        const pbrates = document.querySelectorAll('#pbrate');
-        const pbrateValues = document.querySelectorAll('#pbrate + span');
-        // only change the speed of the selected audio player
-        pbrates.forEach((pbrate, i) => {
-            pbrateValues[i].innerHTML = pbrate.value;
-            pbrate.addEventListener('input', function() {
-                pbrateValues[i].innerHTML = this.value;
-                audio_players[i].querySelector('audio').playbackRate = this.value;
-            });
-        });
-    </script>
+    </div>
 </body>
 </html>
     
