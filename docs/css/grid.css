@@ -2,7 +2,8 @@
     .grid-container {
         grid-template-columns: 1fr;
         grid-template-rows: auto;
-        grid-gap: 0.1%;
+        grid-column-gap: 0.1%;
+        grid-row-gap: 0.5%;       
     }
 }
 
@@ -10,7 +11,8 @@
     .grid-container {
         grid-template-columns: 1fr 1fr;
         grid-template-rows: auto;
-        grid-gap: 0.1%;
+        grid-column-gap: 0.1%;
+        grid-row-gap: 1%;
     }
 }
 
@@ -18,7 +20,8 @@
     .grid-container {
         grid-template-columns: 1fr 1fr 1fr;
         grid-template-rows: auto;
-        grid-gap: 0.25%;
+        grid-column-gap: 0.25%;
+        grid-row-gap: 1.5%;
     }
 }
 
@@ -26,7 +29,8 @@
     .grid-container {
         grid-template-columns: 1fr 1fr 1fr 1fr;
         grid-template-rows: auto;
-        grid-gap: 0.5%;
+        grid-column-gap: 0.5%;
+        grid-row-gap: 1%;
     }
 }
 
@@ -34,8 +38,8 @@
     .grid-container {
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
         grid-template-rows: auto;
-        grid-auto-rows: 10vh;
-        grid-gap: 1%;
+        grid-column-gap: 2%;
+        grid-row-gap: 1.8%;
     }
 }
 
@@ -43,8 +47,8 @@
     .grid-container {
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
         grid-template-rows: auto;
-        grid-auto-rows: 10vh;
-        grid-gap: 2%;
+        grid-column-gap: 3%;
+        grid-row-gap: 2%; 
     }
 }
 

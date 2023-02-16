@@ -24,6 +24,10 @@ audio_books_dir = os.path.join(out_dir, "audiobooks")
 if not os.path.exists(audio_books_dir):
     os.mkdir(audio_books_dir)
 
+cliffnotes_dir = os.path.join(out_dir, "cliffnotes")
+if not os.path.exists(cliffnotes_dir):
+    os.mkdir(cliffnotes_dir)
+
 book_index_file = os.path.join(out_dir, "books.html")
 audio_book_index_file = os.path.join(out_dir, "audiobooks.html")
 main_index_file = os.path.join(out_dir, "index.html")
@@ -266,7 +270,7 @@ def gen_book_list_audio(edge_data):
     book_html_p6_p2 = """
     <!-- <h1 class="title">Free Books</h1> -->
     <a href="https://books.dev00ps.com">
-        <img class="title" src="assets/free_books.webp" alt="Free Books" stye="width:100%;height:100%;">
+        <img class="title" src="../assets/free_books.webp" alt="Free Books" stye="width:100%;height:100%;">
     </a>
 
     <h2 class="subtitle">Valuable content for free. <i>No ads, no paywalls, no bullshit.</i></h2>
@@ -404,6 +408,7 @@ def gen_index():
   <h2 class="subtitle">
     <button class="menu_button"><span onclick="window.location='./books.html'">Books</span></button>
     <button class="menu_button"><span onclick="window.location='./audiobooks.html'">Audiobooks</span></button>
+    <button class="menu_button"><span onclick="window.location='./cliffnotes.html'">Cliff Notes</span></button>
   </h2>
 
   <p class="description-head">Project Goals</p>
