@@ -24,10 +24,6 @@ audio_books_dir = os.path.join(out_dir, "audiobooks")
 if not os.path.exists(audio_books_dir):
     os.mkdir(audio_books_dir)
 
-cliffnotes_dir = os.path.join(out_dir, "cliffnotes")
-if not os.path.exists(cliffnotes_dir):
-    os.mkdir(cliffnotes_dir)
-
 book_index_file = os.path.join(out_dir, "books.html")
 audio_book_index_file = os.path.join(out_dir, "audiobooks.html")
 main_index_file = os.path.join(out_dir, "index.html")
@@ -408,7 +404,7 @@ def gen_index():
   <h2 class="subtitle">
     <button class="menu_button"><span onclick="window.location='./books.html'">Books</span></button>
     <button class="menu_button"><span onclick="window.location='./audiobooks.html'">Audiobooks</span></button>
-    <button class="menu_button"><span onclick="window.location='./cliffnotes.html'">Cliff Notes</span></button>
+    <button class="menu_button"><span onclick="window.location='cliffnotes.dev00ps.com'">Cliff Notes</span></button>
   </h2>
 
   <p class="description-head">Project Goals</p>
