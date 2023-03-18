@@ -49,12 +49,14 @@ def get_categories(dict):
     for key in dict:
         if dict[key] not in categories:
             categories.append(dict[key])
-    return categories
+    num_categories = len(categories)
+    return categories, num_categories
 
 def gen_book_list(edge_data):
     book_titles = edge_data.book_titles1
     book_categorization = edge_data.book_categorization1
     book_edge_urls = edge_data.book_edge_urls1
+    num_reg_books = 0
 
     book_html_p1 = """<!DOCTYPE html>
 <html lang="en">
@@ -108,6 +110,7 @@ def gen_book_list(edge_data):
         }
     </script>
 """
+
     book_html_p6_p1 = """
     <!-- <h1 class="title">Free Books</h1> -->
     <a href="https://books.dev00ps.com">
@@ -130,11 +133,10 @@ def gen_book_list(edge_data):
 </html>
     """
     
-    book_categories = get_categories(book_categorization)
+    book_categories, num_reg_book_categories = get_categories(book_categorization)
     fancy_print("Generating books.html...", "", 1)
 
     with open(book_index_file, "w") as f:
-        num_categories = 1
         f.write(book_html_p1)
         f.write(book_html_p2)
         f.write(book_html_p3)
@@ -143,23 +145,23 @@ def gen_book_list(edge_data):
         f.write(book_html_p6_p1)
         f.write(book_html_p7)
         
-        for i in range(len(book_categories)):
-            
+        for i in range(num_reg_book_categories):
+            category_num = 1
             category_name = book_categories[i]
             link_name = category_name.replace(" ", "_")
             html_code = (f"""  
         <div class="grid-item">
-            <button class="normal_button"><span onclick="window.open('books/{link_name}.html')"><strong>#{num_categories}</strong><br>{category_name}</span></button>
+            <button class="normal_button"><span onclick="window.open('books/{link_name}.html')"><strong>#{category_num}</strong><br>{category_name}</span></button>
         </div>
         """)
             f.write(html_code)
-            num_categories += 1
+            category_num += 1
     
         f.write(book_html_p8)
         f.close()
     
     fancy_print("Creating category pages...", "", 1)
-    for i in range(len(book_categories)):
+    for i in range(num_reg_book_categories):
         # start writing a new html file, but this time instead of book categories, use book names
         category_name = book_categories[i]
         link_name = category_name.replace(" ", "_")
@@ -187,15 +189,20 @@ def gen_book_list(edge_data):
             """)
                     f.write(html_code)
                     num_books += 1
+
+            num_reg_books += num_books
         
             f.write(book_html_p8)
             f.close()
 
-def gen_book_list_audio(edge_data):
+    fancy_print("Number of Reg Book Categories: " + Fore.YELLOW + str(num_reg_book_categories), "", 1)
+    fancy_print("Number of Reg Books: " + Fore.YELLOW + str(num_reg_books), "", 1)
 
+def gen_book_list_audio(edge_data):
     book_titles = edge_data.book_titles2
     book_categorization = edge_data.book_categorization2
     book_edge_urls = edge_data.book_edge_urls2
+    num_audio_books = 0
 
     book_html_p1 = """<!DOCTYPE html>
 <html lang="en">
@@ -292,11 +299,11 @@ def gen_book_list_audio(edge_data):
     """
 
 
-    book_categories = get_categories(book_categorization)
+    book_categories, num_audio_book_categories = get_categories(book_categorization)
     fancy_print("Generating audiobooks.html...", "", 1)
 
     with open(audio_book_index_file, "w") as f:
-        num_categories = 1
+        category_num = 1
         f.write(book_html_p1)
         f.write(book_html_p2)
         f.write(book_html_p3)
@@ -311,11 +318,11 @@ def gen_book_list_audio(edge_data):
             link_name = category_name.replace(" ", "_")
             html_code = (f"""  
         <div class="grid-item">
-            <button class="normal_button"><span onclick="window.open('audiobooks/{link_name}.html')"><strong>#{num_categories}</strong><br>{category_name}</span></button>
+            <button class="normal_button"><span onclick="window.open('audiobooks/{link_name}.html')"><strong>#{category_num}</strong><br>{category_name}</span></button>
         </div>
         """)
             f.write(html_code)
-            num_categories += 1
+            category_num += 1
     
         f.write(book_html_p8_p1)
         f.close()
@@ -363,6 +370,10 @@ def gen_book_list_audio(edge_data):
     
             f.write(book_html_p8_p2)
             f.close()
+            num_audio_books += num_books
+
+    fancy_print("Number of Audio Book Categories: " + Fore.YELLOW + str(num_audio_book_categories), "", 1)
+    fancy_print("Number of Audio Books: " + Fore.YELLOW + str(num_audio_books), "", 1)
 
 def gen_index():
     fancy_print("Generating index.html...", "", 0)
@@ -398,7 +409,7 @@ def gen_index():
   <h3 class="subtitle">
     <button class="menu_button"><span onclick="window.location='./books.html'">Books</span></button>
     <button class="menu_button"><span onclick="window.location='./audiobooks.html'">Audiobooks</span></button>
-    <button class="menu_button"><span onclick="window.location='cliffnotes.dev00ps.com'">Cliff Notes</span></button>
+    <button class="menu_button"><span onclick="window.location='https://cliffnotes.dev00ps.com'">Cliffnotes</span></button>
   </h3>
 
   <p class="description-head">Project Goals</p>
