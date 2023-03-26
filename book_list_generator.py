@@ -145,8 +145,8 @@ def gen_book_list(edge_data):
         f.write(book_html_p6_p1)
         f.write(book_html_p7)
         
+        category_num = 1
         for i in range(num_reg_book_categories):
-            category_num = 1
             category_name = book_categories[i]
             link_name = category_name.replace(" ", "_")
             html_code = (f"""  
