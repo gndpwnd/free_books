@@ -47,9 +47,13 @@ aws configure
 3. Enter the access key and secret key, then leave everything else blank.
 
 4. Now to download the files from the *archive-books* folder in the *dev00psarchive* space
+   1. Note: This command will download everything to the current directory
 
 ```
 aws s3 cp --recursive --endpoint=https://nyc3.digitaloceanspaces.com s3://dev00psarchive/archive-books/ ./
 ```
 
-Note: This command will download everything to the current directory
+## Public Backup
+
+
+[AnonFiles Publication]()

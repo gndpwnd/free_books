@@ -1,2 +1,4 @@
 .vscode/
-__pycahe__/
+__pycache__/
+*.pyc
+*.pyo

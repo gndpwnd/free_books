@@ -103,23 +103,21 @@ def gen_book_list(edge_data):
         window.onscroll = function() {progressbar()};
 
         function progressbar() {
-        var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-        var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        var scrolled = (winScroll / height) * 100;
-        document.getElementById("myBar").style.width = scrolled + "%";
+            var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            var scrolled = (winScroll / height) * 100;
+            document.getElementById("myBar").style.width = scrolled + "%";
         }
     </script>
 """
 
     book_html_p6_p1 = """
-    <!-- <h1 class="title">Free Books</h1> -->
     <a href="https://books.dev00ps.com">
         <img class="title" src="assets/free_books.webp" alt="Free Books" stye="width:100%;height:100%;">
     </a>
 """
 
     book_html_p6_p2 = """
-    <!-- <h1 class="title">Free Books</h1> -->
     <a href="https://books.dev00ps.com">
         <img class="title" src="../assets/free_books.webp" alt="Free Books" stye="width:100%;height:100%;">
     </a>
@@ -258,14 +256,12 @@ def gen_book_list_audio(edge_data):
 """
 
     book_html_p6_p1 = """
-    <!-- <h1 class="title">Free Books</h1> -->
     <a href="https://books.dev00ps.com">
         <img class="title" src="assets/free_books.webp" alt="Free Books" stye="width:100%;height:100%;">
     </a>
 """
 
     book_html_p6_p2 = """
-    <!-- <h1 class="title">Free Books</h1> -->
     <a href="https://books.dev00ps.com">
         <img class="title" src="../assets/free_books.webp" alt="Free Books" stye="width:100%;height:100%;">
     </a>
@@ -399,7 +395,6 @@ def gen_index():
 </head>
 <body class="everything">
 
-    <!-- <h1 class="title">Free Books</h1> -->
     <a href="https://books.dev00ps.com">
         <img class="title" src="assets/free_books.webp" alt="Free Books" stye="width:100%;height:100%;">
     </a>
