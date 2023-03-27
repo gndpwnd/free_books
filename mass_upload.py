@@ -2,8 +2,8 @@ import os
 import subprocess
 from tqdm import tqdm
 
-# Selecte category of books
-folder_name = "medical"
+# Determing Categories for Books to be uploaded
+folder_name = input("Folder Name: ")
 
 # Get the current directory - call this script to run in the current directory
 current_dir = os.getcwd()
