@@ -113,13 +113,13 @@ def gen_book_list(edge_data):
 
     book_html_p6_p1 = """
     <a href="https://books.dev00ps.com">
-        <img class="title" src="assets/free_books.webp" alt="Free Books" stye="width:100%;height:100%;">
+        <img class="title" src="assets/free_books.webp" alt="Free Books" stye="width:563px;height:251px;">
     </a>
 """
 
     book_html_p6_p2 = """
     <a href="https://books.dev00ps.com">
-        <img class="title" src="../assets/free_books.webp" alt="Free Books" stye="width:100%;height:100%;">
+        <img class="title" src="../assets/free_books.webp" alt="Free Books" stye="width:563px;height:251px;">
     </a>
 """
 
@@ -257,13 +257,13 @@ def gen_book_list_audio(edge_data):
 
     book_html_p6_p1 = """
     <a href="https://books.dev00ps.com">
-        <img class="title" src="assets/free_books.webp" alt="Free Books" stye="width:100%;height:100%;">
+        <img class="title" src="assets/free_books.webp" alt="Free Books" stye="width:563px;height:251px;">
     </a>
 """
 
     book_html_p6_p2 = """
     <a href="https://books.dev00ps.com">
-        <img class="title" src="../assets/free_books.webp" alt="Free Books" stye="width:100%;height:100%;">
+        <img class="title" src="../assets/free_books.webp" alt="Free Books" stye="width:563px;height:251px;">
     </a>
 """
 
@@ -396,7 +396,7 @@ def gen_index():
 <body class="everything">
 
     <a href="https://books.dev00ps.com">
-        <img class="title" src="assets/free_books.webp" alt="Free Books" stye="width:100%;height:100%;">
+        <img class="title" src="assets/free_books.webp" alt="Free Books" stye="width:563px;height:251px;">
     </a>
 
   <h2 class="subtitle">Valuable content for free. <i>No ads, no paywalls, no bullshit.</i></h2>
