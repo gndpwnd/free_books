@@ -2,3 +2,5 @@
 __pycache__/
 *.pyc
 *.pyo
+creds/
+to_download.txt

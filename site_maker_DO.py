@@ -9,7 +9,7 @@ prog = Fore.GREEN + "[+] " + Fore.RESET
 
 num_checks = 1
 
-host_dir = os.path.realpath(__file__).split("book_list_generator.py")[0]
+host_dir = os.path.realpath(__file__).split("site_maker_DO.py")[0]
 print("Host Dir:" + host_dir)
 
 out_dir = os.path.join(host_dir, "docs")
@@ -404,6 +404,7 @@ def gen_index():
   <h3 class="subtitle">
     <button class="menu_button"><span onclick="window.location='./books.html'">Books</span></button>
     <button class="menu_button"><span onclick="window.location='./audiobooks.html'">Audiobooks</span></button>
+    <button class="menu_button"><span onclick="window.location='./donate.html'">Donate</span></button>
     <button class="menu_button"><span onclick="window.location='https://cliffnotes.dev00ps.com'">Cliffnotes</span></button>
   </h3>
 
