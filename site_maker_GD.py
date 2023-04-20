@@ -298,9 +298,10 @@ def gen_site(folders2use, files2use):
 
         for folder in folders2use:
             category_name = folder.replace("_", " ").replace(".pdf", "").title()
+            link_name = category_name.replace(" ", "_")
             html_code = (f"""  
         <div class="grid-item">
-            <button class="normal_button"><span onclick="window.open('books/{folder}.html')"><strong>#{category_num}</strong><br>{category_name}</span></button>
+            <button class="normal_button"><span onclick="window.open('books/{link_name}.html')"><strong>#{category_num}</strong><br>{category_name}</span></button>
         </div>
         """)
             f.write(html_code)
