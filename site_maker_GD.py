@@ -8,12 +8,48 @@ from googleapiclient.errors import HttpError
 from tqdm import tqdm
 from colorama import Fore
 
+'''
+
+(Books are categorized based on topic/content)
+
+Basic Google Drive File Structure Example
+
+Google Drive/
+├─ category1/
+│  ├─ book1
+│  ├─ book6
+│  ├─ book7
+├─ category2/
+│  ├─ book3
+│  ├─ book5
+│  ├─ book8
+├─ category3/
+│  ├─ book2
+│  ├─ book4
+
+
+Specific Google Drive File Structure Example
+
+FreeBooks Drive/
+├─ business/
+│  ├─ The_Richest_Man_In_Babylon.pdf
+│  ├─ Your_Next_Five_Moves.pdf
+│  ├─ Rich_Dad_Poor_Dad.pdf
+├─ mindset/
+│  ├─ A_Hackers_Mind.pdf
+│  ├─ Breathe.pdf
+├─ survival/
+│  ├─ Anarchist_Cookbook.pdf
+│  ├─ Ammunition_Handbook.pdf
+
+'''
+
 # Replace with your own credentials file
 creds_dir = "creds"
 creds_file = os.path.join(creds_dir, "credentials.json")
 pickle_file = os.path.join(creds_dir, "token.pickle")
 
-host_dir = os.path.realpath(__file__).split("book_list_generator.py")[0]
+host_dir = os.path.realpath(__file__).split("site_maker_GD.py")[0]
 out_dir = os.path.join(host_dir, "docs")
 books_dir = os.path.join(out_dir, "books")
 
@@ -22,12 +58,6 @@ audio_book_index_file = os.path.join(out_dir, "audiobooks.html")
 main_index_file = os.path.join(out_dir, "index.html")
 
 prog = Fore.GREEN + "[+] " + Fore.RESET
-
-all_folders = []
-all_files = []
-
-print(Fore.YELLOW + "Host Dir: " + Fore.RESET + host_dir)
-print(Fore.YELLOW + "Out Dir: " + Fore.RESET + out_dir)
 
 def fancy_print(str, val, ind):
         indent = ""
@@ -39,7 +69,13 @@ def fancy_print(str, val, ind):
         else:
             print(indent + Fore.GREEN + "[+] " + Fore.RESET + str + Fore.YELLOW + val + Fore.RESET)
 
+fancy_print("Using The Following Information", "", 0)
+print(Fore.YELLOW + "Host Dir: " + Fore.RESET + host_dir)
+print(Fore.YELLOW + "Out Dir: " + Fore.RESET + out_dir)
+
 def sys_checks():
+
+    fancy_print("Performing System Checks", "", 0)
 
     # Site Directories
 
@@ -52,6 +88,12 @@ def sys_checks():
 
     if not os.path.exists(creds_dir):
         os.makedirs(creds_dir)
+
+    if not os.path.exists(creds_file):
+        print(Fore.RED + "[-] " + Fore.RESET + "Credentials file not found. Please place credentials.json in " + creds_dir)
+        exit()
+    
+    print(Fore.GREEN + "All System Checks Passed" + Fore.RESET)
 
 def get_service():
 
@@ -81,6 +123,17 @@ html_to_use = [
 """<!DOCTYPE html>
 <html lang="en">
 <head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0KZX48SLMJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0KZX48SLMJ');
+</script>
+
 """,
 
 """
@@ -154,13 +207,17 @@ html_to_use = [
 
 def get_good_data():
 
+    fancy_print("Analyzing Files in Google Drive...", "", 0)
     service = get_service()
 
     # Step 4: List folders in Google Drive
     folders = service.files().list(q="mimeType='application/vnd.google-apps.folder' and trashed=false", fields="nextPageToken, files(id, name, createdTime)").execute().get('files', [])
     folders = sorted(folders, key=lambda x: x['name'])
     
-
+    all_folders = []
+    all_files = []
+    
+    total_num_folders = 0
     total_num_books = 0
 
     # Step 5: List files in each folder
@@ -170,7 +227,7 @@ def get_good_data():
         if folder not in all_folders:
             all_folders.append(folder['name'])
 
-        folders_pbar.set_description(Fore.GREEN + "Processing " + Fore.RESET + str(folder['name']) + Fore.GREEN)
+        folders_pbar.set_description(Fore.GREEN + "Processing Folder: " + Fore.RESET + str(folder['name']) + Fore.GREEN)
 
         files = service.files().list(q="'{}' in parents and trashed=false".format(folder['id']), fields="nextPageToken, files(id, name, createdTime, webViewLink, permissions)").execute().get('files', [])
         files = sorted(files, key=lambda x: x['name'])
@@ -179,6 +236,8 @@ def get_good_data():
         # If not, add the permission and record file URL for each file
         files_pbar = tqdm(files)
         curr_files = []
+
+        total_num_folders += 1
 
         for file in files_pbar:
 
@@ -205,8 +264,8 @@ def get_good_data():
                 file_info.append(file_name)
                 file_info.append(file_url)
                 # Print file information
-                print(f"name: {file_name}")
-                print(f"url: {file_url}\n")
+                #print(f"name: {file_name}")
+                #print(f"url: {file_url}\n")
 
                 total_num_books += 1
             except HttpError as error:
@@ -216,15 +275,15 @@ def get_good_data():
             curr_files.append(file_info)
         # the list of list of file info is stored in the list of all files
         all_files.append(curr_files)
-
-    print(Fore.RESET + "Total Books: " + Fore.CYAN + str(total_num_books))
-
-def gen_site():
     
-    data = get_good_data()
-    print(data)
+    print(Fore.GREEN + "File Analysis Successful")
+    print(Fore.RESET + "Total Books In Google Drive: " + Fore.CYAN + str(total_num_books))
+    print(Fore.RESET + "Total Folders (Categories) In Google Drive: " + Fore.CYAN + str(total_num_folders))
+    return all_folders, all_files
 
-    fancy_print("Generating books.html...", "", 1)
+def gen_site(folders2use, files2use):
+
+    fancy_print("Generating books.html...", "", 0)
     
     with open(book_index_file, "w") as f:
         
@@ -233,13 +292,13 @@ def gen_site():
         f.write(html_to_use[2])
         f.write(html_to_use[4])
         f.write(html_to_use[5])
-        f.write(html_to_use[6])
+        f.write(html_to_use[7])
         
         category_num = 1
 
-        for i in range(len(all_folders)):
-            category_name = all_folders[i]
-            link_name = category_name.replace(" ", "_")
+        for folder in folders2use:
+            category_name = folder.replace("_", " ").replace(".pdf", "").title()
+            link_name = category_name
             html_code = (f"""  
         <div class="grid-item">
             <button class="normal_button"><span onclick="window.open('books/{link_name}.html')"><strong>#{category_num}</strong><br>{category_name}</span></button>
@@ -248,13 +307,49 @@ def gen_site():
             f.write(html_code)
             category_num += 1
     
-        f.write(html_to_use[7])
+        f.write(html_to_use[8])
         f.close()
     
-    fancy_print("Creating category pages...", "", 1)
+    fancy_print("Creating category pages...", "", 0)
 
+    for folder in folders2use:
+        #print(folder)
+        category_name = folder
+        link_name = category_name.replace(" ", "_").title()
+        file2write = os.path.join(books_dir, f"{link_name}.html")
+        fancy_print("Creating " + file2write + "...", "", 1)
+        #print(file2write)
+        
+        folderindex = folders2use.index(folder)
+        with open(file2write, "w") as f:
+            f.write(html_to_use[0])
+            f.write(html_to_use[1])
+            f.write(html_to_use[3])
+            f.write(html_to_use[4])
+            f.write(html_to_use[6])
+            f.write(html_to_use[7])
 
-#gen_site()
+            book_num = 1
+            for file in files2use[folderindex]:
+                book_name = file[0].replace("_", " ").replace(".pdf", "").title() + ""
+                #print(File Name: " + file[0])
+                #print(File URL: " + file[1])
+                html_code = (f"""
+        <div class="grid-item">
+            <button class="normal_button"><span onclick="window.open('{file[1]}')"><strong>#{book_num}</strong><br>{book_name}</span></button>
+        </div>
+        """)
+                f.write(html_code)
+                book_num += 1
 
-data = get_good_data()
-print(data)
+            f.write(html_to_use[8])
+            f.close()
+
+    fancy_print("Done!", "", 0)
+                
+
+sys_checks()
+folders2use, files2use = get_good_data()
+#print(folders2use)
+#print(files2use)
+gen_site(folders2use, files2use)

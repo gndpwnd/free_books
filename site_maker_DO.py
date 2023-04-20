@@ -1,5 +1,44 @@
 #!/usr/bin/python3
 
+'''
+
+(Books are categorized based on topic/content)
+
+
+Basic Digital Ocean Space File Structure Example
+
+DO_space/
+├─ subject_folder/
+│  ├─ category1/
+│  │  ├─ book1
+│  │  ├─ book2
+│  │  ├─ book7
+│  ├─ category2/
+│  │  ├─ book3
+│  │  ├─ book4
+│  ├─ category3/
+│  │  ├─ book5
+│  │  ├─ book6
+
+
+
+Specific Digital Ocean Space File Structure Example
+
+dev00psarchive/
+├─ archive-books/
+│  ├─ business/
+│  │  ├─ The_Richest_Man_In_Babylon.pdf
+│  │  ├─ Your_Next_Five_Moves.pdf
+│  │  ├─ Rich_Dad_Poor_Dad.pdf
+│  ├─ survival/
+│  │  ├─ Anarchist_Cookbook.pdf
+│  │  ├─ Ammunition_Handbook.pdf
+│  ├─ mindset/
+│  │  ├─ A_Hackers_Mind.pdf
+│  │  ├─ Breathe.pdf
+
+'''
+
 import os
 from colorama import Fore
 from g_analytics import *
