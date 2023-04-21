@@ -231,9 +231,8 @@ def get_good_data():
 
         files = service.files().list(q="'{}' in parents and trashed=false".format(folder['id']), fields="nextPageToken, files(id, name, createdTime, webViewLink, permissions)").execute().get('files', [])
         files = sorted(files, key=lambda x: x['name'])
+
         
-        # Step 6: Check if file has "anyone" permission with "reader" role
-        # If not, add the permission and record file URL for each file
         files_pbar = tqdm(files)
         curr_files = []
 
@@ -248,6 +247,7 @@ def get_good_data():
             file_info = []
 
             try:
+                
                 # Check if anyone has "reader" role on the file
                 permissions = service.permissions().list(fileId=file['id'], fields="permissions(type,role)").execute()
                 has_anyone_reader_permission = any(p.get("type") == "anyone" and p.get("role") == "reader" for p in permissions.get("permissions", []))
@@ -268,8 +268,9 @@ def get_good_data():
                 #print(f"url: {file_url}\n")
 
                 total_num_books += 1
+
             except HttpError as error:
-                print(f'An error occurred: {error}')
+                print(Fore.RED + "Error: " + Fore.RESET + str(error))
             
             # the list of file info is stored in the list of files in the current folder
             curr_files.append(file_info)
