@@ -8,6 +8,9 @@ from googleapiclient.errors import HttpError
 from tqdm import tqdm
 from colorama import Fore
 
+from GD_stuff.make_index import make_index_html_to_use
+from GD_stuff.make_donate import make_donate_html_to_use
+
 '''
 
 (Books are categorized based on topic/content)
@@ -56,6 +59,7 @@ books_dir = os.path.join(out_dir, "books")
 book_index_file = os.path.join(out_dir, "books.html")
 audio_book_index_file = os.path.join(out_dir, "audiobooks.html")
 main_index_file = os.path.join(out_dir, "index.html")
+donate_file = os.path.join(out_dir, "donate.html")
 
 prog = Fore.GREEN + "[+] " + Fore.RESET
 
@@ -284,7 +288,7 @@ def get_good_data():
 
 def gen_site(folders2use, files2use):
 
-    fancy_print("Generating books.html...", "", 0)
+    fancy_print("Creating ", "books.html", 0)
     
     with open(book_index_file, "w") as f:
         
@@ -311,14 +315,14 @@ def gen_site(folders2use, files2use):
         f.write(html_to_use[8])
         f.close()
     
-    fancy_print("Creating category pages...", "", 0)
+    fancy_print("Generating category pages...", "", 0)
 
     for folder in folders2use:
         #print(folder)
         category_name = folder
         link_name = category_name.replace(" ", "_").title()
         file2write = os.path.join(books_dir, f"{link_name}.html")
-        fancy_print("Creating " + file2write + "...", "", 1)
+        fancy_print("Creating ", file2write, 1)
         #print(file2write)
         
         folderindex = folders2use.index(folder)
@@ -349,8 +353,22 @@ def gen_site(folders2use, files2use):
     fancy_print("Done!", "", 0)
                 
 
+def misc_files():
+    
+    fancy_print("Creatinge ", "index.html", 0)
+    with open(main_index_file, "w") as f:
+        f.write(make_index_html_to_use)
+        f.close()
+
+    fancy_print("Creating ", "donate.html", 0)
+    with open(donate_file, "w") as f:
+        f.write(make_donate_html_to_use)
+        f.close()
+
+
 sys_checks()
 folders2use, files2use = get_good_data()
 #print(folders2use)
 #print(files2use)
+misc_files()
 gen_site(folders2use, files2use)

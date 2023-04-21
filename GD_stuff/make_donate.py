@@ -1,4 +1,4 @@
-
+make_donate_html_to_use = '''
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -475,8 +475,9 @@
 <script>
     const currentYear = new Date().getFullYear();
     var copywrightele = document.getElementById("copywright");
-    copywrightele.innerHTML = "Copyright &#169 2023-" + currentYear + " <a href=\"https://00psfreebooks.github.io/\"> FreeBooks</a>";
+    copywrightele.innerHTML = "Copyright &#169 2023-" + currentYear + " <a href=\\"https://00psfreebooks.github.io/\\"> FreeBooks</a>";
 </script>
 
 </body>
 </html>
+'''

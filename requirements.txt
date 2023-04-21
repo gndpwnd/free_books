@@ -1,3 +1,7 @@
+colorama==0.4.4
 digital_ocean_spaces==0.2.5
+google_api_python_client==2.86.0
+google_auth_oauthlib==0.4.6
+protobuf==4.22.3
 spaces==0.1.0
-colorama
+tqdm==4.62.2

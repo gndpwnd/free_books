@@ -41,8 +41,8 @@ dev00psarchive/
 
 import os
 from colorama import Fore
-from g_analytics import *
-from do_spaces_files import *
+from DO_stuff.g_analytics import *
+from DO_stuff.do_spaces_files import *
 
 prog = Fore.GREEN + "[+] " + Fore.RESET
 

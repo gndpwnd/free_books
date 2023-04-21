@@ -1,4 +1,4 @@
-
+make_index_html_to_use = '''
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -65,3 +65,4 @@
   </body>
 </html>
 
+'''
