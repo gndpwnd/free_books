@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/grid.css">
     <link rel="stylesheet" href="../css/button.css">
+    <link rel="stylesheet" href="../css/search.css">
 
     <title>Freshavacado</title>
 </head>
@@ -50,6 +51,12 @@
     <a href="https://books.dev00ps.com">
         <img class="title" src="../assets/free_books.webp" alt="Free Books" stye="width:563px;height:251px;">
     </a>
+
+    <script async src="../js/book_search.js"></script>
+    <div id="search-container">
+        <input type="text" id="search-bar" onkeyup="searchBooks()" placeholder="Search for a book...">
+        <div id="search-results" class="dropdown-content"></div>
+    </div>
 
 
     <div class="grid-container">

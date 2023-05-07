@@ -10,6 +10,7 @@ from colorama import Fore
 
 from GD_stuff.make_index import make_index_html_to_use
 from GD_stuff.make_donate import make_donate_html_to_use
+from GD_stuff.make_search import clear_search_index, add_to_index
 
 '''
 
@@ -55,18 +56,18 @@ pickle_file = os.path.join(creds_dir, "token.pickle")
 host_dir = os.path.realpath(__file__).split("site_maker_GD.py")[0]
 out_dir = os.path.join(host_dir, "docs")
 books_dir = os.path.join(out_dir, "books")
+js_dir = os.path.join(out_dir, "js")
 
 book_index_file = os.path.join(out_dir, "books.html")
 audio_book_index_file = os.path.join(out_dir, "audiobooks.html")
 main_index_file = os.path.join(out_dir, "index.html")
 donate_file = os.path.join(out_dir, "donate.html")
+book_index_json_file = os.path.join(js_dir, "search_index.json")
 
 prog = Fore.GREEN + "[+] " + Fore.RESET
 
 def fancy_print(str, val, ind):
-        indent = ""
-        for i in range(ind):
-            indent += "    "
+        indent = "" + ("    " * ind)
 
         if val == "":
             print(indent + Fore.GREEN + "[+] " +  Fore.RESET + str)
@@ -74,10 +75,13 @@ def fancy_print(str, val, ind):
             print(indent + Fore.GREEN + "[+] " + Fore.RESET + str + Fore.YELLOW + val + Fore.RESET)
 
 fancy_print("Using The Following Information", "", 0)
-print(Fore.YELLOW + "Host Dir: " + Fore.RESET + host_dir)
-print(Fore.YELLOW + "Out Dir: " + Fore.RESET + out_dir)
+print(Fore.RESET + "Host Dir: " + Fore.BLUE + host_dir)
+print(Fore.RESET + "Out Dir: " + Fore.BLUE + out_dir)
+print(Fore.RESET + "Search Index: " + Fore.BLUE + book_index_json_file)
 
 def sys_checks():
+
+    warn_str = Fore.YELLOW + "[!] " + Fore.RESET
 
     fancy_print("Performing System Checks", "", 0)
 
@@ -87,6 +91,8 @@ def sys_checks():
         os.mkdir(out_dir)
     if not os.path.exists(books_dir):
         os.mkdir(books_dir)
+    if not os.path.exists(js_dir):
+        os.mkdir(js_dir)
 
     # Creds Stuff
 
@@ -97,6 +103,11 @@ def sys_checks():
         print(Fore.RED + "[-] " + Fore.RESET + "Credentials file not found. Please place credentials.json in " + creds_dir)
         exit()
     
+    if clear_search_index(book_index_json_file):
+        print(warn_str + "Search index cleared")
+    else:
+        print(Fore.RED + "[-] " + Fore.RESET + "Search index not cleared")
+
     print(Fore.GREEN + "All System Checks Passed" + Fore.RESET)
 
 def get_service():
@@ -157,12 +168,14 @@ html_to_use = [
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/grid.css">
     <link rel="stylesheet" href="css/button.css">
+    <link rel="stylesheet" href="css/search.css">
 """,
 
 """
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/grid.css">
     <link rel="stylesheet" href="../css/button.css">
+    <link rel="stylesheet" href="../css/search.css">
 """,
 
 
@@ -191,12 +204,24 @@ html_to_use = [
     <a href="https://books.dev00ps.com">
         <img class="title" src="assets/free_books.webp" alt="Free Books" stye="width:563px;height:251px;">
     </a>
+
+    <script async src="js/book_search.js"></script>
+    <div id="search-container">
+        <input type="text" id="search-bar" onkeyup="searchBooks()" placeholder="Search for a book...">
+        <div id="search-results" class="dropdown-content"></div>
+    </div>
 """,
 
 """
     <a href="https://books.dev00ps.com">
         <img class="title" src="../assets/free_books.webp" alt="Free Books" stye="width:563px;height:251px;">
     </a>
+
+    <script async src="../js/book_search.js"></script>
+    <div id="search-container">
+        <input type="text" id="search-bar" onkeyup="searchBooks()" placeholder="Search for a book...">
+        <div id="search-results" class="dropdown-content"></div>
+    </div>
 """,
 
 """\n\n    <div class=\"grid-container\">""",
@@ -208,6 +233,7 @@ html_to_use = [
 """
 
 ]
+
 
 def get_good_data():
 
@@ -278,8 +304,10 @@ def get_good_data():
             
             # the list of file info is stored in the list of files in the current folder
             curr_files.append(file_info)
+            add_to_index(book_index_json_file, folder['name'], curr_files)
         # the list of list of file info is stored in the list of all files
         all_files.append(curr_files)
+        # done writing to json
     
     print(Fore.GREEN + "File Analysis Successful")
     print(Fore.RESET + "Total Books In Google Drive: " + Fore.CYAN + str(total_num_books))
@@ -368,7 +396,5 @@ def misc_files():
 
 sys_checks()
 folders2use, files2use = get_good_data()
-#print(folders2use)
-#print(files2use)
 misc_files()
 gen_site(folders2use, files2use)
