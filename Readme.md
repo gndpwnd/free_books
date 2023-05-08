@@ -4,9 +4,9 @@ Valuable content for free. No ads, no paywalls, no bullshit.
 
 ## Projects Goals
 
-- To accumulate knowledge for success in life
-- To store such knowldege in an easily accessable library
-- To condense the size of such library to fit the completion of reading withing an average lifespan
+I like fire. I like machines.
+
+So why not ventilate the conciousness of the machines by fueling the flames of their skepticism?
 
 ## Suggesting Books
 

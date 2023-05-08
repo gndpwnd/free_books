@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0KZX48SLMJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0KZX48SLMJ');
+</script>
+
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta 
+        name="description"
+        content="Author: gndpnwd
+        Free PDF books. 
+        Valuable content for free. 
+        No ads, no paywalls, no bullshit.">
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/grid.css">
+    <link rel="stylesheet" href="../css/button.css">
+    <link rel="stylesheet" href="../css/search.css">
+
+    <title>Freshavacado</title>
+</head>
+<body class="everything">
+
+    <div class="progress-container">
+        <div class="progress-bar" id="myBar"></div>
+    </div> 
+
+    <script>
+        window.onscroll = function() {progressbar()};
+
+        function progressbar() {
+            var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            var scrolled = (winScroll / height) * 100;
+            document.getElementById("myBar").style.width = scrolled + "%";
+        }
+    </script>
+
+    <a href="https://books.dev00ps.com">
+        <img class="title" src="../assets/free_books.webp" alt="Free Books" stye="width:563px;height:251px;">
+    </a>
+
+    <script async src="../js/book_search.js"></script>
+    <div id="search-container">
+        <input type="text" id="search-bar" onkeyup="searchBooks()" placeholder="Search for a book...">
+        <div id="search-results" class="dropdown-content"></div>
+    </div>
+
+
+    <div class="grid-container">
+        <div class="grid-item">
+            <button class="normal_button"><span onclick="window.open('https://drive.google.com/file/d/1QPEPfzdRAOUgOGjXBfery9PXU8nfpzKF/view?usp=sharing')"><strong>#1</strong><br>Crucial Conversations</span></button>
+        </div>
+        
+        <div class="grid-item">
+            <button class="normal_button"><span onclick="window.open('https://drive.google.com/file/d/1aaBPOAYTNw8f-oq0i7x1ZZVGnc86lPUx/view?usp=sharing')"><strong>#2</strong><br>Exactly What To Say</span></button>
+        </div>
+        
+        <div class="grid-item">
+            <button class="normal_button"><span onclick="window.open('https://drive.google.com/file/d/1Qw6hLF7BC9o_a5wJbIB3HqacqZMOfTM1/view?usp=sharing')"><strong>#3</strong><br>Good Arguments</span></button>
+        </div>
+        
+        <div class="grid-item">
+            <button class="normal_button"><span onclick="window.open('https://drive.google.com/file/d/1RIv1HGnlaHX1H61pBBqGlfALw7uzl4zU/view?usp=sharing')"><strong>#4</strong><br>How To Win Friends And Influence People</span></button>
+        </div>
+        
+        <div class="grid-item">
+            <button class="normal_button"><span onclick="window.open('https://drive.google.com/file/d/1aXdTpKL6nYifND6bLk3vBqADe6kHle-j/view?usp=sharing')"><strong>#5</strong><br>How To Talk To Anyone</span></button>
+        </div>
+        
+        <div class="grid-item">
+            <button class="normal_button"><span onclick="window.open('https://drive.google.com/file/d/1Qy0NSXhDS4WGcMCsUG7DDjcQN9nqDCoh/view?usp=sharing')"><strong>#6</strong><br>Influence</span></button>
+        </div>
+        
+        <div class="grid-item">
+            <button class="normal_button"><span onclick="window.open('https://drive.google.com/file/d/1RLtbCYGQlGSlI80u8lKY7ZTb8pU-UqCa/view?usp=sharing')"><strong>#7</strong><br>Presuasion</span></button>
+        </div>
+        
+        <div class="grid-item">
+            <button class="normal_button"><span onclick="window.open('https://drive.google.com/file/d/1b2iGQo0Wa3Y5e0MhxMmG1flSdxX1SJxT/view?usp=sharing')"><strong>#8</strong><br>Talk Like Ted</span></button>
+        </div>
+        
+        <div class="grid-item">
+            <button class="normal_button"><span onclick="window.open('https://drive.google.com/file/d/1b3_v_oMc4yIZnxXR6YM5ix2nqmA_5mZF/view?usp=sharing')"><strong>#9</strong><br>The Communication Book</span></button>
+        </div>
+        
+        <div class="grid-item">
+            <button class="normal_button"><span onclick="window.open('https://drive.google.com/file/d/1ag2GBAuz-3Sn5dZCXhYZHUpAewaUfztI/view?usp=sharing')"><strong>#10</strong><br>The Fine Art Of Small Talk</span></button>
+        </div>
+        
+        <div class="grid-item">
+            <button class="normal_button"><span onclick="window.open('https://drive.google.com/file/d/1ae_6BjVlqyT0TAuZIvxTXSOagzAjz4OX/view?usp=sharing')"><strong>#11</strong><br>The Like Switch</span></button>
+        </div>
+        
+    </div>
+</body>
+</html>
