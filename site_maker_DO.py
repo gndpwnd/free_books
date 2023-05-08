@@ -1,5 +1,8 @@
 #!/usr/bin/python3
 
+# This script is out-dated, it doesn't create a search index, storage isn't up to date, among other things.
+# I switched to using google drive for now, but digital ocean spaces are always a viable option.
+
 '''
 
 (Books are categorized based on topic/content)

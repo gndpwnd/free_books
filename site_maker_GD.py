@@ -48,11 +48,14 @@ FreeBooks Drive/
 
 '''
 
-# Replace with your own credentials file
+# Download your google project credentials into a local folder named creds/
+# Upon execution, you will be asked to authenticate and "token.pickle" will be generated
+# If you do get a "invalid_grant: Token has been expired or revoked.", simply delete "token.pickle" and re-run this script to re-authenticate
 creds_dir = "creds"
 creds_file = os.path.join(creds_dir, "credentials.json")
 pickle_file = os.path.join(creds_dir, "token.pickle")
 
+# Specifying where files will be relative to where this script is.
 host_dir = os.path.realpath(__file__).split("site_maker_GD.py")[0]
 out_dir = os.path.join(host_dir, "docs")
 books_dir = os.path.join(out_dir, "books")
@@ -85,7 +88,7 @@ def sys_checks():
 
     fancy_print("Performing System Checks", "", 0)
 
-    # Site Directories
+    # Check Site Directories
 
     if not os.path.exists(out_dir):
         os.mkdir(out_dir)
@@ -94,7 +97,7 @@ def sys_checks():
     if not os.path.exists(js_dir):
         os.mkdir(js_dir)
 
-    # Creds Stuff
+    # Check Creds Stuff
 
     if not os.path.exists(creds_dir):
         os.makedirs(creds_dir)
@@ -110,6 +113,7 @@ def sys_checks():
 
     print(Fore.GREEN + "All System Checks Passed" + Fore.RESET)
 
+# Create authentication service to interact with google drive
 def get_service():
 
     if os.path.exists(pickle_file):
@@ -133,6 +137,7 @@ def get_service():
     
     return service
 
+# Website code snippets
 html_to_use = [
 
 """<!DOCTYPE html>
@@ -234,7 +239,7 @@ html_to_use = [
 
 ]
 
-
+# Pull file information from google drive
 def get_good_data():
 
     fancy_print("Analyzing Files in Google Drive...", "", 0)
@@ -314,6 +319,7 @@ def get_good_data():
     print(Fore.RESET + "Total Folders (Categories) In Google Drive: " + Fore.CYAN + str(total_num_folders))
     return all_folders, all_files
 
+# Write code snippets and file information into files
 def gen_site(folders2use, files2use):
 
     fancy_print("Creating ", "books.html", 0)
@@ -380,7 +386,7 @@ def gen_site(folders2use, files2use):
 
     fancy_print("Done!", "", 0)
                 
-
+# Write other files for the static website
 def misc_files():
     
     fancy_print("Creatinge ", "index.html", 0)
@@ -393,7 +399,7 @@ def misc_files():
         f.write(make_donate_html_to_use)
         f.close()
 
-
+# Execute Script
 sys_checks()
 folders2use, files2use = get_good_data()
 misc_files()
