@@ -94,3 +94,11 @@ p {
     font-size: 1.5em;
     text-align: center;
 }
+
+
+#root-link {
+    display: block;
+    margin: 0 auto;
+    border: 4px solid white;
+    margin-bottom: 60px;
+}

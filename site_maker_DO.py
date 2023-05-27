@@ -470,6 +470,24 @@ def gen_index():
     <button class="menu_button"><span onclick="window.location='https://github.com/gndpwnd/free_books/'">Project Github</span></button>
     <button class="menu_button"><span onclick="window.location='https://github.com/gndpwnd'">Author</span></button>
   </h2>
+  
+  <canvas id="root-link"></canvas>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrious/dist/qrious.min.js"></script>
+  <script>
+    // Generate the QR code
+    function generateQRCode(text, canvasId) {
+      var canvas = document.getElementById(canvasId);
+      var qr = new QRious({
+        element: canvas,
+        value: text,
+        size: 300
+      });
+    }
+    
+    generateQRCode("https://books.dev00ps.com", "root-link");
+  </script>
 
   </body>
 </html>

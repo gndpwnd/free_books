@@ -233,6 +233,7 @@ html_to_use = [
 
 """
     </div>
+  
 </body>
 </html>
 """
